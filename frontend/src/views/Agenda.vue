@@ -1,6 +1,7 @@
 <template>
   <div class="view-wrapper">
-    <TopBar titulo="Agenda" sub="Vista semanal del equipo" @nuevo="abrirModal">
+    <TrabajoModal v-if="modalAbierto" :trabajo="trabajoSeleccionado" @cerrar="modalAbierto = false" @actualizado="recargar" />
+    <TopBar titulo="Agenda" sub="Vista semanal del equipo" @nuevo="abrirModal(null)">
       <template #filtros>
         <div class="week-nav">
           <button class="nav-btn" @click="cambiarSemana(-1)">&#8249;</button>
@@ -26,12 +27,15 @@
 import { ref, computed, onMounted } from 'vue'
 import { getUsuarios } from '../api/usuarios'
 import { getTrabaj }   from '../api/trabajos'
-import TopBar     from '../components/TopBar.vue'
-import AgendaGrid from '../components/AgendaGrid.vue'
+import TopBar        from '../components/TopBar.vue'
+import AgendaGrid    from '../components/AgendaGrid.vue'
+import TrabajoModal  from '../components/TrabajoModal.vue'
 
 const usuarios = ref([])
 const trabajos = ref([])
 const analistas = computed(() => usuarios.value.filter(u => u.rol === 'analista'))
+const modalAbierto        = ref(false)
+const trabajoSeleccionado = ref(null)
 
 // ── Semana activa ──────────────────────────────────────
 const lunesActivo = ref(lunesDeHoy())
@@ -81,14 +85,16 @@ const semanaLabel = computed(() => {
 })
 
 // ── Carga de datos ────────────────────────────────────
-onMounted(async () => {
+async function recargar() {
   [usuarios.value, trabajos.value] = await Promise.all([
     getUsuarios(), getTrabaj()
   ])
-})
+}
+onMounted(recargar)
 
 function abrirModal(trabajo) {
-  console.log('Abrir modal:', trabajo)
+  trabajoSeleccionado.value = trabajo || null
+  modalAbierto.value = true
 }
 </script>
 

@@ -1,6 +1,7 @@
 <template>
   <div class="view-wrapper">
-    <TopBar titulo="Dashboard" sub="Visibilidad del equipo" @nuevo="abrirModal" />
+    <TopBar titulo="Dashboard" sub="Visibilidad del equipo" @nuevo="abrirModal(null)" />
+    <TrabajoModal v-if="modalAbierto" :trabajo="trabajoSeleccionado" @cerrar="modalAbierto = false" @actualizado="recargar" />
 
     <div class="view-content">
       <!-- KPI Cards -->
@@ -47,23 +48,28 @@ import { ref, computed, onMounted } from 'vue'
 import { getUsuarios } from '../api/usuarios'
 import { getAreas }    from '../api/areas'
 import { getTrabaj }   from '../api/trabajos'
-import TopBar     from '../components/TopBar.vue'
-import KpiCards   from '../components/KpiCards.vue'
-import MemberCard from '../components/MemberCard.vue'
-import AreaCard   from '../components/AreaCard.vue'
-import Desglose   from '../components/Desglose.vue'
+import TopBar       from '../components/TopBar.vue'
+import KpiCards      from '../components/KpiCards.vue'
+import MemberCard    from '../components/MemberCard.vue'
+import AreaCard      from '../components/AreaCard.vue'
+import Desglose      from '../components/Desglose.vue'
+import TrabajoModal  from '../components/TrabajoModal.vue'
 
 const usuarios = ref([])
 const areas    = ref([])
 const trabajos = ref([])
+const modalAbierto       = ref(false)
+const trabajoSeleccionado = ref(null)
 
 const analistas = computed(() => usuarios.value.filter(u => u.rol === 'analista'))
 
-onMounted(async () => {
+async function recargar() {
   [usuarios.value, areas.value, trabajos.value] = await Promise.all([
     getUsuarios(), getAreas(), getTrabaj()
   ])
-})
+}
+
+onMounted(recargar)
 
 const trabajosPorUsuario = (uid) =>
   trabajos.value.filter(t => t.responsable_id === uid)
@@ -72,8 +78,8 @@ const trabajosPorArea = (nombre) =>
   trabajos.value.filter(t => !t.responsable_id && t.area_equipo === nombre)
 
 function abrirModal(trabajo) {
-  // Tarea 16: abrir TrabajoModal
-  console.log('Abrir modal:', trabajo)
+  trabajoSeleccionado.value = trabajo || null
+  modalAbierto.value = true
 }
 </script>
 

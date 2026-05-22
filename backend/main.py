@@ -6,10 +6,10 @@ from routes import trabajos, usuarios, areas
 
 app = FastAPI(title="TeamBoard API", version="1.0.0")
 
-# CORS — permite que Vue (puerto 5173) hable con FastAPI (puerto 8000)
+# CORS — acepta cualquier origen local (desarrollo)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )

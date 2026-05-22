@@ -1,5 +1,9 @@
 import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+import App    from './App.vue'
+import router from './router'
 
-createApp(App).mount('#app')
+// Restaurar tema guardado
+const tema = localStorage.getItem('tema') || 't-dark'
+document.body.className = tema
+
+createApp(App).use(router).mount('#app')

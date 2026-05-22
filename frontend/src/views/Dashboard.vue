@@ -44,10 +44,11 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { getUsuarios } from '../api/usuarios'
 import { getAreas }    from '../api/areas'
 import { getTrabaj }   from '../api/trabajos'
+import { useFiltros }  from '../composables/useFiltros'
 import TopBar       from '../components/TopBar.vue'
 import KpiCards      from '../components/KpiCards.vue'
 import MemberCard    from '../components/MemberCard.vue'
@@ -58,18 +59,20 @@ import TrabajoModal  from '../components/TrabajoModal.vue'
 const usuarios = ref([])
 const areas    = ref([])
 const trabajos = ref([])
-const modalAbierto       = ref(false)
+const modalAbierto        = ref(false)
 const trabajoSeleccionado = ref(null)
+const { filtros }         = useFiltros()
 
 const analistas = computed(() => usuarios.value.filter(u => u.rol === 'analista'))
 
 async function recargar() {
   [usuarios.value, areas.value, trabajos.value] = await Promise.all([
-    getUsuarios(), getAreas(), getTrabaj()
+    getUsuarios(), getAreas(), getTrabaj(filtros())
   ])
 }
 
 onMounted(recargar)
+watch(filtros, recargar)
 
 const trabajosPorUsuario = (uid) =>
   trabajos.value.filter(t => t.responsable_id === uid)

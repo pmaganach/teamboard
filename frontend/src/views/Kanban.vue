@@ -14,9 +14,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { getUsuarios } from '../api/usuarios'
 import { getTrabaj }   from '../api/trabajos'
+import { useFiltros }  from '../composables/useFiltros'
 import TopBar       from '../components/TopBar.vue'
 import KanbanBoard  from '../components/KanbanBoard.vue'
 import TrabajoModal from '../components/TrabajoModal.vue'
@@ -25,14 +26,16 @@ const usuarios = ref([])
 const trabajos = ref([])
 const modalAbierto        = ref(false)
 const trabajoSeleccionado = ref(null)
+const { filtros }         = useFiltros()
 
 async function cargarDatos() {
   [usuarios.value, trabajos.value] = await Promise.all([
-    getUsuarios(), getTrabaj()
+    getUsuarios(), getTrabaj(filtros())
   ])
 }
 
 onMounted(cargarDatos)
+watch(filtros, cargarDatos)
 
 function abrirModal(trabajo) {
   trabajoSeleccionado.value = trabajo || null

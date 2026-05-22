@@ -15,14 +15,14 @@ USUARIOS = [
 ]
 
 AREAS = [
-    {"nombre": "Comercial",    "icono": "📣", "color": "#ED002F"},
-    {"nombre": "Postventa",    "icono": "🔧", "color": "#f59e0b"},
-    {"nombre": "Operaciones",  "icono": "⚙️",  "color": "#3b82f6"},
-    {"nombre": "Finanzas",     "icono": "💰", "color": "#10b981"},
-    {"nombre": "RR.HH.",       "icono": "👥", "color": "#a78bfa"},
-    {"nombre": "TI",           "icono": "💻", "color": "#06b6d4"},
-    {"nombre": "Marketing",    "icono": "📊", "color": "#ec4899"},
-    {"nombre": "Gerencia",     "icono": "🏢", "color": "#636466"},
+    {"nombre": "Customer Intelligence",       "icono": "🔍", "color": "#3b82f6", "encargado": "Aníbal Preez"},
+    {"nombre": "Estrategia Comercial",        "icono": "📈", "color": "#ED002F", "encargado": "Hyun Park"},
+    {"nombre": "Operaciones Comerciales",     "icono": "🏪", "color": "#f59e0b", "encargado": "Natalia Sandoval"},
+    {"nombre": "Performance & Reporting",     "icono": "📋", "color": "#10b981", "encargado": "Javier Fernández"},
+    {"nombre": "Excelencia Operacional & CEX","icono": "⭐", "color": "#a78bfa", "encargado": "Rubén Tapia"},
+    {"nombre": "Monitoring",                  "icono": "📡", "color": "#06b6d4", "encargado": "Raul Spano"},
+    {"nombre": "Customer Care",               "icono": "💬", "color": "#ec4899", "encargado": "Marion Zembo"},
+    {"nombre": "Field Service",               "icono": "🔧", "color": "#f97316", "encargado": "Felipe Vega"},
 ]
 
 

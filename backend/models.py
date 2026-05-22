@@ -35,10 +35,11 @@ class Usuario(SQLModel, table=True):
 
 # ─── ÁREA ──────────────────────────────────────────────
 class Area(SQLModel, table=True):
-    id     : Optional[int] = Field(default=None, primary_key=True)
-    nombre : str
-    icono  : str = "📋"
-    color  : str = "#636466"
+    id        : Optional[int] = Field(default=None, primary_key=True)
+    nombre    : str
+    icono     : str = "📋"
+    color     : str = "#636466"
+    encargado : Optional[str] = None   # Nombre del encargado del área cliente
 
 
 # ─── TRABAJO ───────────────────────────────────────────

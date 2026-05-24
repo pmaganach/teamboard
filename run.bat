@@ -6,20 +6,20 @@ echo  =========================================
 echo   TeamBoard - Verisure Analisis
 echo  =========================================
 echo.
-echo  Iniciando backend  (puerto 8000)...
+echo  Iniciando backend  (puerto 8001)...
 echo  Iniciando frontend (puerto 5173)...
 echo.
 echo  Acceso:
 echo    App:     http://localhost:5173
-echo    API:     http://localhost:8000
-echo    API Doc: http://localhost:8000/docs
+echo    API:     http://localhost:8001
+echo    API Doc: http://localhost:8001/docs
 echo.
 echo  Cierra esta ventana para detener todo.
 echo  =========================================
 echo.
 
 :: Backend
-start "TeamBoard Backend" cmd /k "cd /d %~dp0backend && ..\venv\Scripts\activate && uvicorn main:app --reload --port 8000"
+start "TeamBoard Backend" cmd /k "cd /d %~dp0backend && ..\venv\Scripts\activate && uvicorn main:app --reload --port 8001"
 
 :: Esperar 3 segundos a que el backend arranque
 timeout /t 3 /nobreak > nul

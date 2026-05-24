@@ -8,4 +8,4 @@ router = APIRouter(prefix="/usuarios", tags=["usuarios"])
 
 @router.get("/")
 def listar_usuarios(session: Session = Depends(get_session)):
-    return session.exec(select(Usuario).where(Usuario.activo == True)).all()
+    return session.exec(select(Usuario).where(Usuario.activo == True).order_by(Usuario.nombre)).all()

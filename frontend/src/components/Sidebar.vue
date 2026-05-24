@@ -2,10 +2,10 @@
   <aside class="sidebar">
     <!-- Logo -->
     <div class="logo">
-      <span class="logo-mark">TB</span>
+      <span class="logo-mark">R</span>
       <div>
-        <div class="logo-title">TeamBoard</div>
-        <div class="logo-sub">Verisure Análisis</div>
+        <div class="logo-title">Radar</div>
+        <div class="logo-sub">Customer Intelligence</div>
       </div>
     </div>
 

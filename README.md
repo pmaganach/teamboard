@@ -1,6 +1,6 @@
-# TeamBoard · Verisure Análisis
+# Radar · Customer Intelligence
 
-App interna para visibilidad de trabajos del equipo de Análisis.
+App interna para visibilidad de trabajos del equipo de Customer Intelligence · Verisure.
 
 ## Requisitos
 

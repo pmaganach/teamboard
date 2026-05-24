@@ -18,7 +18,7 @@
         <span class="nav-icon">&#128197;</span> Agenda
       </router-link>
       <router-link to="/kanban" class="nav-item" :class="{ active: ruta === '/kanban' }">
-        <span class="nav-icon">&#9776;</span> Kanban
+        <span class="nav-icon">&#9776;</span> Gestión
       </router-link>
     </nav>
 

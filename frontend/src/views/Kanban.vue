@@ -1,7 +1,7 @@
 <template>
   <div class="view-wrapper">
     <TrabajoModal v-if="modalAbierto" :trabajo="trabajoSeleccionado" @cerrar="modalAbierto = false" @actualizado="cargarDatos" />
-    <TopBar titulo="Kanban" sub="Tablero por estado" @nuevo="abrirModal(null)" />
+    <TopBar titulo="Gestión" sub="Tablero por estado" @nuevo="abrirModal(null)" />
     <div class="view-content">
       <KanbanBoard
         :trabajos="trabajos"

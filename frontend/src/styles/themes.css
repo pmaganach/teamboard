@@ -39,47 +39,47 @@ body.t-dark {
 
 /* Terracota — arcilla cálida */
 body.t-terracota {
-  --bg:         #fdf6f2;
-  --surface:    #ffffff;
-  --surface2:   #f9ede6;
-  --sidebar-bg: #fff8f5;
-  --topbar-bg:  #fff8f5;
-  --border:     #e8d0c4;
+  --bg:         #f5e6de;
+  --surface:    #fdf0ea;
+  --surface2:   #ead5c8;
+  --sidebar-bg: #f0ddd2;
+  --topbar-bg:  #f0ddd2;
+  --border:     #d4a898;
   --text:       #2a1510;
-  --text-sub:   #9a6a58;
-  --card-bg:    #fef2ec;
-  --accent:     #c0522a;
-  --accent-dim: #c0522a14;
+  --text-sub:   #8a5040;
+  --card-bg:    #fdf0ea;
+  --accent:     #b04020;
+  --accent-dim: #b0402018;
 }
 
 /* Slate — gris azulado profesional */
 body.t-slate {
-  --bg:         #f0f4f8;
-  --surface:    #ffffff;
-  --surface2:   #e8edf2;
-  --sidebar-bg: #ffffff;
-  --topbar-bg:  #ffffff;
-  --border:     #d1dbe6;
-  --text:       #1e293b;
-  --text-sub:   #64748b;
-  --card-bg:    #f8fafc;
-  --accent:     #475569;
-  --accent-dim: #47556914;
+  --bg:         #dce4ed;
+  --surface:    #eaf0f7;
+  --surface2:   #ccd6e2;
+  --sidebar-bg: #d0dbe8;
+  --topbar-bg:  #d0dbe8;
+  --border:     #b0bfce;
+  --text:       #0f1e2e;
+  --text-sub:   #4a6070;
+  --card-bg:    #eaf0f7;
+  --accent:     #2d4a66;
+  --accent-dim: #2d4a6618;
 }
 
 /* Matcha — verde té fresco */
 body.t-matcha {
-  --bg:         #f2f7f2;
-  --surface:    #ffffff;
-  --surface2:   #e8f2e8;
-  --sidebar-bg: #ffffff;
-  --topbar-bg:  #ffffff;
-  --border:     #c8dfc8;
-  --text:       #1a2e1a;
-  --text-sub:   #5a7a5a;
-  --card-bg:    #f5faf5;
-  --accent:     #4a7c59;
-  --accent-dim: #4a7c5914;
+  --bg:         #d8eadb;
+  --surface:    #e8f4ea;
+  --surface2:   #c4d9c8;
+  --sidebar-bg: #cce0d0;
+  --topbar-bg:  #cce0d0;
+  --border:     #a8c8ac;
+  --text:       #0e2010;
+  --text-sub:   #3d6644;
+  --card-bg:    #e8f4ea;
+  --accent:     #2e6640;
+  --accent-dim: #2e664018;
 }
 
 /* Dusk — lavanda atardecer */

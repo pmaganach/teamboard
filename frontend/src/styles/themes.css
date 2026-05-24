@@ -8,21 +8,8 @@
   --gray-2:   #8A8C8E;
 }
 
-body, body.t-dark {
-  --bg:         #1C1C1C;
-  --surface:    #252525;
-  --surface2:   #2e2e2e;
-  --sidebar-bg: #1a1a1a;
-  --topbar-bg:  #1a1a1a;
-  --border:     #333;
-  --text:       #e8e8e8;
-  --text-sub:   #636466;
-  --card-bg:    #1e1e1e;
-  --accent:     #ED002F;
-  --accent-dim: #ED002F18;
-}
-
-body.t-light {
+/* DEFAULT — Claro */
+body, body.t-light {
   --bg:         #F1F1F1;
   --surface:    #ffffff;
   --surface2:   #f5f5f5;
@@ -36,72 +23,91 @@ body.t-light {
   --accent-dim: #ED002F12;
 }
 
-body.t-forest {
-  --bg:         #101e14;
-  --surface:    #172318;
-  --surface2:   #1f2e21;
-  --sidebar-bg: #0d1a0f;
-  --topbar-bg:  #0d1a0f;
-  --border:     #243627;
-  --text:       #d8f0dc;
-  --text-sub:   #5a7e5f;
-  --card-bg:    #111e13;
-  --accent:     #4ade80;
-  --accent-dim: #4ade8018;
+body.t-dark {
+  --bg:         #1C1C1C;
+  --surface:    #252525;
+  --surface2:   #2e2e2e;
+  --sidebar-bg: #1a1a1a;
+  --topbar-bg:  #1a1a1a;
+  --border:     #333;
+  --text:       #e8e8e8;
+  --text-sub:   #636466;
+  --card-bg:    #1e1e1e;
+  --accent:     #ED002F;
+  --accent-dim: #ED002F18;
 }
 
-body.t-ocean {
-  --bg:         #0d1829;
-  --surface:    #132035;
-  --surface2:   #1a2a44;
-  --sidebar-bg: #0a1220;
-  --topbar-bg:  #0a1220;
-  --border:     #1e3050;
-  --text:       #cce0ff;
-  --text-sub:   #4a6a90;
-  --card-bg:    #0f1a2e;
-  --accent:     #38bdf8;
-  --accent-dim: #38bdf818;
+/* Terracota — arcilla cálida */
+body.t-terracota {
+  --bg:         #fdf6f2;
+  --surface:    #ffffff;
+  --surface2:   #f9ede6;
+  --sidebar-bg: #fff8f5;
+  --topbar-bg:  #fff8f5;
+  --border:     #e8d0c4;
+  --text:       #2a1510;
+  --text-sub:   #9a6a58;
+  --card-bg:    #fef2ec;
+  --accent:     #c0522a;
+  --accent-dim: #c0522a14;
 }
 
-body.t-rose {
-  --bg:         #1e1018;
-  --surface:    #281420;
-  --surface2:   #341b2a;
-  --sidebar-bg: #1a0c16;
-  --topbar-bg:  #1a0c16;
-  --border:     #3d2030;
-  --text:       #fce8f0;
-  --text-sub:   #7a4a60;
-  --card-bg:    #1e1018;
-  --accent:     #f472b6;
-  --accent-dim: #f472b618;
+/* Slate — gris azulado profesional */
+body.t-slate {
+  --bg:         #f0f4f8;
+  --surface:    #ffffff;
+  --surface2:   #e8edf2;
+  --sidebar-bg: #ffffff;
+  --topbar-bg:  #ffffff;
+  --border:     #d1dbe6;
+  --text:       #1e293b;
+  --text-sub:   #64748b;
+  --card-bg:    #f8fafc;
+  --accent:     #475569;
+  --accent-dim: #47556914;
 }
 
-body.t-ruby {
-  --bg:         #1c0a0a;
-  --surface:    #261010;
-  --surface2:   #301818;
-  --sidebar-bg: #170808;
-  --topbar-bg:  #170808;
-  --border:     #3d1515;
-  --text:       #ffe8e8;
-  --text-sub:   #7a4040;
-  --card-bg:    #1e0d0d;
-  --accent:     #fb7185;
-  --accent-dim: #fb718518;
+/* Matcha — verde té fresco */
+body.t-matcha {
+  --bg:         #f2f7f2;
+  --surface:    #ffffff;
+  --surface2:   #e8f2e8;
+  --sidebar-bg: #ffffff;
+  --topbar-bg:  #ffffff;
+  --border:     #c8dfc8;
+  --text:       #1a2e1a;
+  --text-sub:   #5a7a5a;
+  --card-bg:    #f5faf5;
+  --accent:     #4a7c59;
+  --accent-dim: #4a7c5914;
 }
 
-body.t-indigo {
-  --bg:         #12102a;
-  --surface:    #1a1836;
-  --surface2:   #232044;
-  --sidebar-bg: #0e0c22;
-  --topbar-bg:  #0e0c22;
-  --border:     #2a2650;
-  --text:       #e0dcff;
-  --text-sub:   #5a5680;
-  --card-bg:    #141228;
-  --accent:     #818cf8;
-  --accent-dim: #818cf818;
+/* Dusk — lavanda atardecer */
+body.t-dusk {
+  --bg:         #f5f0ff;
+  --surface:    #ffffff;
+  --surface2:   #ede8ff;
+  --sidebar-bg: #ffffff;
+  --topbar-bg:  #ffffff;
+  --border:     #d8cef5;
+  --text:       #1e1040;
+  --text-sub:   #7c6aaa;
+  --card-bg:    #faf8ff;
+  --accent:     #7c3aed;
+  --accent-dim: #7c3aed14;
+}
+
+/* Amber — dorado energético */
+body.t-amber {
+  --bg:         #fffbf0;
+  --surface:    #ffffff;
+  --surface2:   #fff4d6;
+  --sidebar-bg: #ffffff;
+  --topbar-bg:  #ffffff;
+  --border:     #f0dfa0;
+  --text:       #2a1f00;
+  --text-sub:   #9a7c30;
+  --card-bg:    #fffdf5;
+  --accent:     #d97706;
+  --accent-dim: #d9770614;
 }

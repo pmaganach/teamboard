@@ -3,15 +3,15 @@ from database import engine
 from models import Usuario, Area, Rol
 
 USUARIOS = [
-    {"nombre": "Aníbal Preez",        "iniciales": "AP", "rol": Rol.gerente,  "color": "#ED002F"},
-    {"nombre": "Pablo Magaña",         "iniciales": "PM", "rol": Rol.analista, "color": "#10b981"},
     {"nombre": "Álvaro Román",         "iniciales": "AR", "rol": Rol.analista, "color": "#3b82f6"},
-    {"nombre": "Miguel Bravo",         "iniciales": "MB", "rol": Rol.analista, "color": "#f59e0b"},
-    {"nombre": "Karla Hidalgo",        "iniciales": "KH", "rol": Rol.analista, "color": "#a78bfa"},
-    {"nombre": "Víctor Benítez",       "iniciales": "VB", "rol": Rol.analista, "color": "#06b6d4"},
+    {"nombre": "Aníbal Preez",         "iniciales": "AP", "rol": Rol.gerente,  "color": "#ED002F"},
     {"nombre": "Dominique Navarrete",  "iniciales": "DN", "rol": Rol.analista, "color": "#ec4899"},
+    {"nombre": "Karla Hidalgo",        "iniciales": "KH", "rol": Rol.analista, "color": "#a78bfa"},
     {"nombre": "Manuel Maldonado",     "iniciales": "MM", "rol": Rol.analista, "color": "#f97316"},
-    {"nombre": "Wilmari Ruiz",         "iniciales": "WR", "rol": Rol.analista, "color": "#84cc16"},
+    {"nombre": "Miguel Bravo",         "iniciales": "MB", "rol": Rol.analista, "color": "#f59e0b"},
+    {"nombre": "Pablo Magaña",         "iniciales": "PM", "rol": Rol.analista, "color": "#84cc16"},
+    {"nombre": "Víctor Benítez",       "iniciales": "VB", "rol": Rol.analista, "color": "#06b6d4"},
+    {"nombre": "Wilmari Ruiz",         "iniciales": "WR", "rol": Rol.analista, "color": "#10b981"},
 ]
 
 AREAS = [

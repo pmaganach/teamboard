@@ -1,4 +1,4 @@
-# Radar · Customer Intelligence
+# Bitácora · Customer Intelligence
 
 App interna para visibilidad de trabajos del equipo de Customer Intelligence · Verisure.
 

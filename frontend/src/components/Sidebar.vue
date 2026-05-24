@@ -2,9 +2,11 @@
   <aside class="sidebar">
     <!-- Logo -->
     <div class="logo">
-      <span class="logo-mark">R</span>
+      <div class="logo-mark">
+        <img src="/logo-verisure.png" alt="Verisure" class="logo-img" />
+      </div>
       <div>
-        <div class="logo-title">Radar</div>
+        <div class="logo-title">Bitácora</div>
         <div class="logo-sub">Customer Intelligence</div>
       </div>
     </div>
@@ -12,13 +14,13 @@
     <!-- Navegación principal -->
     <nav class="nav">
       <router-link to="/dashboard" class="nav-item" :class="{ active: ruta === '/dashboard' }">
-        <span class="nav-icon">&#9632;</span> Dashboard
+        <span class="nav-icon">🏠</span> Inicio
       </router-link>
       <router-link to="/agenda" class="nav-item" :class="{ active: ruta === '/agenda' }">
-        <span class="nav-icon">&#128197;</span> Agenda
+        <span class="nav-icon">📅</span> Agenda
       </router-link>
       <router-link to="/kanban" class="nav-item" :class="{ active: ruta === '/kanban' }">
-        <span class="nav-icon">&#9776;</span> Gestión
+        <span class="nav-icon">🗂️</span> Gestión
       </router-link>
     </nav>
 
@@ -42,24 +44,43 @@
 
     <!-- Selector de tema -->
     <ThemePicker />
+
+    <div class="divider"></div>
+
+    <!-- Usuario actual + logout -->
+    <div class="session" v-if="user">
+      <div class="session-info">
+        <div class="session-nombre">{{ user.nombre }}</div>
+        <div class="session-rol">{{ user.rol }}</div>
+      </div>
+      <button class="btn-logout" @click="cerrarSesion" title="Cerrar sesión">↩</button>
+    </div>
   </aside>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { getUsuarios } from '../api/usuarios'
+import { useAuth } from '../composables/useAuth'
 import ThemePicker from './ThemePicker.vue'
 
 const route    = useRoute()
+const router   = useRouter()
 const ruta     = ref(route.path)
 const usuarios = ref([])
+const { user, logout } = useAuth()
 
 route && (ruta.value = route.path)
 
 onMounted(async () => {
   usuarios.value = await getUsuarios()
 })
+
+function cerrarSesion() {
+  logout()
+  router.push('/login')
+}
 </script>
 
 <style scoped>
@@ -79,10 +100,12 @@ onMounted(async () => {
 }
 .logo-mark {
   width: 32px; height: 32px; border-radius: 8px;
-  background: var(--accent); color: #fff;
-  font-size: 12px; font-weight: 900;
+  background: var(--surface2);
   display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
+  flex-shrink: 0; overflow: hidden;
+}
+.logo-img {
+  width: 28px; height: 28px; object-fit: contain;
 }
 .logo-title { font-size: 13px; font-weight: 700; color: var(--text); }
 .logo-sub   { font-size: 10px; color: var(--text-sub); }
@@ -98,7 +121,7 @@ onMounted(async () => {
 .nav-item.active {
   background: var(--accent-dim); color: var(--accent); font-weight: 700;
 }
-.nav-icon { font-size: 11px; }
+.nav-icon { font-size: 11px; width: 16px; text-align: center; display: inline-block; flex-shrink: 0; }
 
 .divider { height: 1px; background: var(--border); margin: 4px 0; }
 
@@ -124,4 +147,18 @@ onMounted(async () => {
 }
 .member-name { font-size: 11px; font-weight: 600; color: var(--text); line-height: 1.2; }
 .member-rol  { font-size: 10px; color: var(--text-sub); text-transform: capitalize; }
+
+.session {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 12px; margin: 4px 8px 8px;
+  background: var(--surface2); border-radius: 8px;
+}
+.session-info  { flex: 1; min-width: 0; }
+.session-nombre { font-size: 11px; font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.session-rol    { font-size: 10px; color: var(--text-sub); text-transform: capitalize; }
+.btn-logout {
+  font-size: 14px; color: var(--text-sub); padding: 4px 6px;
+  border-radius: 6px; transition: background 0.15s, color 0.15s; flex-shrink: 0;
+}
+.btn-logout:hover { background: var(--border); color: var(--text); }
 </style>

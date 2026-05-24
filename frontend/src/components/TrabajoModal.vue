@@ -14,35 +14,30 @@
             <input v-model="form.nombre" placeholder="Ej: Dashboard Comercial Q2" />
           </div>
 
-          <!-- Área cliente -->
+          <!-- Área -->
           <div class="campo">
-            <label>Área cliente *</label>
+            <label>Área *</label>
             <select v-model="form.area_cliente">
               <option value="">Seleccionar área...</option>
               <option v-for="a in areas" :key="a.id" :value="a.nombre">{{ a.icono }} {{ a.nombre }}</option>
             </select>
           </div>
 
-          <!-- Responsable -->
-          <div class="campo">
+          <!-- Responsable (solo gerente puede cambiar) -->
+          <div class="campo" v-if="isGerente">
             <label>Responsable</label>
-            <select v-model="form.responsable_id" @change="onResponsableChange">
+            <select v-model="form.responsable_id">
               <option :value="null">Sin asignar (tarea de área)</option>
               <option v-for="u in analistas" :key="u.id" :value="u.id">{{ u.nombre }}</option>
             </select>
           </div>
 
-          <!-- Área equipo (solo si sin responsable) -->
-          <div class="campo" v-if="!form.responsable_id">
-            <label>Área del equipo</label>
-            <input v-model="form.area_equipo" placeholder="Ej: Análisis · Reportería" />
-          </div>
 
           <!-- Fila: Estado + Prioridad -->
           <div class="campo-fila">
             <div class="campo">
               <label>Estado</label>
-              <select v-model="form.estado">
+              <select v-model="form.estado" :disabled="!esMiTrabajo">
                 <option value="por_comenzar">Por comenzar</option>
                 <option value="en_gestion">En gestión</option>
                 <option value="en_revision">En revisión</option>
@@ -52,7 +47,7 @@
             </div>
             <div class="campo">
               <label>Prioridad</label>
-              <select v-model="form.prioridad">
+              <select v-model="form.prioridad" :disabled="!esMiTrabajo">
                 <option value="alta">Alta</option>
                 <option value="media">Media</option>
                 <option value="baja">Baja</option>
@@ -63,7 +58,7 @@
           <!-- Progreso -->
           <div class="campo">
             <label>Progreso — <strong>{{ form.progreso }}%</strong></label>
-            <input type="range" min="0" max="100" v-model.number="form.progreso" class="slider" />
+            <input type="range" min="0" max="100" v-model.number="form.progreso" class="slider" :disabled="!esMiTrabajo" />
             <div class="prog-preview">
               <div class="prog-bar">
                 <div class="prog-fill" :style="{ width: form.progreso + '%' }"></div>
@@ -91,15 +86,18 @@
 </template>
 
 <script setup>
-import { reactive, onMounted } from 'vue'
+import { reactive, computed, onMounted } from 'vue'
 import { getAreas }    from '../api/areas'
 import { getUsuarios } from '../api/usuarios'
 import { createTrabaj, updateTrabaj, deleteTrabaj } from '../api/trabajos'
+import { useAuth } from '../composables/useAuth'
 
 const props = defineProps({
   trabajo: { type: Object, default: null },
 })
 const emit = defineEmits(['cerrar', 'actualizado'])
+
+const { user, isGerente } = useAuth()
 
 const areas    = reactive([])
 const analistas = reactive([])
@@ -115,6 +113,11 @@ const form = reactive({
   progreso:       0,
   fecha_sla:      null,
 })
+
+// Un analista solo puede editar estado/progreso de sus propios trabajos
+const esMiTrabajo = computed(() =>
+  !form.id || isGerente.value || form.responsable_id === user.value?.usuario_id
+)
 
 onMounted(async () => {
   const [a, u] = await Promise.all([getAreas(), getUsuarios()])
@@ -133,12 +136,13 @@ onMounted(async () => {
       progreso:       props.trabajo.progreso,
       fecha_sla:      props.trabajo.fecha_sla,
     })
+  } else {
+    // Nuevo trabajo: asignar automáticamente al usuario actual si es analista
+    if (!isGerente.value) {
+      form.responsable_id = user.value?.usuario_id || null
+    }
   }
 })
-
-function onResponsableChange() {
-  if (form.responsable_id) form.area_equipo = null
-}
 
 async function guardar() {
   const datos = {

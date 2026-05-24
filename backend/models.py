@@ -82,3 +82,19 @@ class TrabajoUpdate(SQLModel):
 
 class EstadoUpdate(SQLModel):
     estado: Estado
+
+
+# ─── AUTH ───────────────────────────────────────────────
+class UserAuth(SQLModel, table=True):
+    id         : Optional[int] = Field(default=None, primary_key=True)
+    email      : str           = Field(unique=True)
+    nombre     : str
+    rol        : Rol           = Rol.analista
+    usuario_id : Optional[int] = Field(default=None, foreign_key="usuario.id")
+
+
+class OTP(SQLModel, table=True):
+    id         : Optional[int] = Field(default=None, primary_key=True)
+    email      : str
+    code       : str
+    expires_at : datetime

@@ -61,10 +61,11 @@ const estadoColor = (e) => ESTADOS[e]?.color || '#636466'
 .trabajos-list { display: flex; flex-direction: column; gap: 4px; }
 .trabajo-row {
   display: flex; align-items: center; gap: 8px;
-  padding: 5px 8px; border-radius: 7px;
+  padding: 6px 10px; border-radius: 8px;
+  background: var(--surface2);
   cursor: pointer; transition: background 0.15s;
 }
-.trabajo-row:hover { background: var(--surface2); }
+.trabajo-row:hover { background: var(--border); }
 .row-dot {
   width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
 }

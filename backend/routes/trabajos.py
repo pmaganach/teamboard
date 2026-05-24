@@ -21,14 +21,15 @@ def listar_trabajos(
     if analista_id : query = query.where(Trabajo.responsable_id == analista_id)
     if estado      : query = query.where(Trabajo.estado == estado)
     if area        : query = query.where(Trabajo.area_cliente == area)
-    if desde       : query = query.where(Trabajo.fecha_sla >= desde)
-    if hasta       : query = query.where(Trabajo.fecha_sla <= hasta)
+    if hasta       : query = query.where(Trabajo.fecha_inicio <= hasta)
+    if desde       : query = query.where((Trabajo.fecha_sla >= desde) | (Trabajo.fecha_sla == None))
     return session.exec(query).all()
 
 
 @router.post("/", status_code=201)
 def crear_trabajo(trabajo: TrabajoCreate, session: Session = Depends(get_session)):
     db_trabajo = Trabajo.model_validate(trabajo)
+    db_trabajo.area_equipo = "Customer Intelligence"
     session.add(db_trabajo)
     session.commit()
     session.refresh(db_trabajo)

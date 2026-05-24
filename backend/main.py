@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import create_db
 from seed import seed
-from routes import trabajos, usuarios, areas
+from routes import trabajos, usuarios, areas, auth
 
 app = FastAPI(title="TeamBoard API", version="1.0.0")
 
@@ -23,6 +23,7 @@ def on_startup():
 
 
 # Registrar rutas
+app.include_router(auth.router)
 app.include_router(trabajos.router)
 app.include_router(usuarios.router)
 app.include_router(areas.router)

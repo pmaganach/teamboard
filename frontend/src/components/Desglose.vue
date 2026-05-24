@@ -40,7 +40,7 @@
                 <span class="prog-pct">{{ t.progreso }}%</span>
               </div>
             </td>
-            <td class="sub-cell">{{ t.fecha_sla || '—' }}</td>
+            <td class="sub-cell">{{ fmtFecha(t.fecha_sla) }}</td>
             <td>
               <span class="prio-badge" :class="t.prioridad">{{ t.prioridad }}</span>
             </td>
@@ -63,7 +63,8 @@ const props = defineProps({
 })
 defineEmits(['editar'])
 
-const usuario = (id) => props.usuarios.find(u => u.id === id)
+const usuario   = (id) => props.usuarios.find(u => u.id === id)
+const fmtFecha  = (f) => f ? f.split('-').reverse().join('-') : '—'
 
 const ESTADOS = {
   por_comenzar: { label: 'Por comenzar', color: '#636466' },

@@ -1,6 +1,6 @@
 from sqlmodel import Session, select
 from database import engine
-from models import Usuario, Area, Rol
+from models import Usuario, Area, UserAuth, Rol
 
 USUARIOS = [
     {"nombre": "Álvaro Román",         "iniciales": "AR", "rol": Rol.analista, "color": "#3b82f6"},
@@ -15,14 +15,27 @@ USUARIOS = [
 ]
 
 AREAS = [
-    {"nombre": "Customer Intelligence",       "icono": "🔍", "color": "#3b82f6", "encargado": "Aníbal Preez"},
-    {"nombre": "Estrategia Comercial",        "icono": "📈", "color": "#ED002F", "encargado": "Hyun Park"},
+    {"nombre": "Customer Intelligence",       "icono": "📈", "color": "#3b82f6", "encargado": "Aníbal Preez"},
+    {"nombre": "Estrategia Comercial",        "icono": "🔍", "color": "#ED002F", "encargado": "Hyun Park"},
     {"nombre": "Operaciones Comerciales",     "icono": "🏪", "color": "#f59e0b", "encargado": "Natalia Sandoval"},
     {"nombre": "Performance & Reporting",     "icono": "📋", "color": "#10b981", "encargado": "Javier Fernández"},
     {"nombre": "Excelencia Operacional & CEX","icono": "⭐", "color": "#a78bfa", "encargado": "Rubén Tapia"},
     {"nombre": "Monitoring",                  "icono": "📡", "color": "#06b6d4", "encargado": "Raul Spano"},
-    {"nombre": "Customer Care",               "icono": "💬", "color": "#ec4899", "encargado": "Marion Zembo"},
+    {"nombre": "Customer Care",               "icono": "📞", "color": "#ec4899", "encargado": "Marion Zembo"},
     {"nombre": "Field Service",               "icono": "🔧", "color": "#f97316", "encargado": "Felipe Vega"},
+]
+
+
+USER_EMAILS = [
+    {"nombre": "Aníbal Preez",        "email": "anibal.preez@verisure.cl",      "rol": Rol.gerente  },
+    {"nombre": "Álvaro Román",        "email": "alvaro.roman@verisure.cl",      "rol": Rol.analista },
+    {"nombre": "Dominique Navarrete", "email": "d.navarrete@verisure.cl",       "rol": Rol.analista },
+    {"nombre": "Karla Hidalgo",       "email": "karla.hidalgo@verisure.cl",     "rol": Rol.analista },
+    {"nombre": "Manuel Maldonado",    "email": "manuel.maldonado@verisure.cl",  "rol": Rol.analista },
+    {"nombre": "Miguel Bravo",        "email": "miguel.bcaceres@verisure.cl",   "rol": Rol.analista },
+    {"nombre": "Pablo Magaña",        "email": "pablo.magana@verisure.cl",      "rol": Rol.analista },
+    {"nombre": "Víctor Benítez",      "email": "victor.benitez@verisure.cl",    "rol": Rol.analista },
+    {"nombre": "Wilmari Ruiz",        "email": "wilmari.ruiz@verisure.cl",      "rol": Rol.analista },
 ]
 
 
@@ -43,6 +56,22 @@ def seed():
             print("Áreas cargadas.")
 
         session.commit()
+
+        # UserAuth — vincula email con usuario_id
+        existing_auth = session.exec(select(UserAuth)).first()
+        if not existing_auth:
+            for ue in USER_EMAILS:
+                usuario = session.exec(
+                    select(Usuario).where(Usuario.nombre == ue["nombre"])
+                ).first()
+                session.add(UserAuth(
+                    email      = ue["email"],
+                    nombre     = ue["nombre"],
+                    rol        = ue["rol"],
+                    usuario_id = usuario.id if usuario else None,
+                ))
+            session.commit()
+            print("UserAuth cargados.")
 
 
 if __name__ == "__main__":

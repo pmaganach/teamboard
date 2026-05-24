@@ -46,7 +46,7 @@
               <span>{{ t.progreso }}%</span>
             </div>
 
-            <span class="sla" v-if="t.fecha_sla">{{ t.fecha_sla }}</span>
+            <span class="sla" v-if="t.fecha_sla">{{ fmtFecha(t.fecha_sla) }}</span>
           </div>
         </div>
 
@@ -82,6 +82,7 @@ const dragSobre         = ref(null)
 
 const tarjetasPor = (estado) => props.trabajos.filter(t => t.estado === estado)
 const usuario     = (id)     => props.usuarios.find(u => u.id === id)
+const fmtFecha    = (f)      => f ? f.split('-').reverse().join('-') : '—'
 
 function arrastrar(t) {
   tarjetaArrastrada.value = t

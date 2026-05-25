@@ -78,6 +78,7 @@
 
       <!-- Desglose -->
       <section class="section">
+        <h2 class="section-title">Detalle</h2>
         <Desglose :trabajos="trabajos" :usuarios="usuarios" @editar="abrirModal" />
       </section>
     </div>

@@ -40,7 +40,7 @@ const { desde, hasta, limpiar } = useFiltros()
 <style scoped>
 .topbar {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 14px 24px;
+  padding: 21px 24px 17px;
   background: var(--topbar-bg);
   border-bottom: 1px solid var(--border);
   gap: 16px; flex-wrap: wrap;

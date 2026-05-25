@@ -10,15 +10,15 @@
 
 /* DEFAULT — Claro */
 body, body.t-light {
-  --bg:         #F1F1F1;
+  --bg:         #ebebeb;
   --surface:    #ffffff;
-  --surface2:   #f5f5f5;
+  --surface2:   #f0f0f0;
   --sidebar-bg: #ffffff;
   --topbar-bg:  #ffffff;
-  --border:     #e0e0e0;
+  --border:     #d4d4d4;
   --text:       #1a1a1a;
   --text-sub:   #636466;
-  --card-bg:    #f5f5f5;
+  --card-bg:    #f8f8f8;
   --accent:     #ED002F;
   --accent-dim: #ED002F12;
 }
@@ -37,77 +37,182 @@ body.t-dark {
   --accent-dim: #ED002F18;
 }
 
-/* Terracota — arcilla cálida */
-body.t-terracota {
-  --bg:         #fdf6f2;
-  --surface:    #ffffff;
-  --surface2:   #f9ede6;
-  --sidebar-bg: #fff8f5;
-  --topbar-bg:  #fff8f5;
-  --border:     #e8d0c4;
-  --text:       #2a1510;
-  --text-sub:   #9a6a58;
-  --card-bg:    #fef2ec;
-  --accent:     #c0522a;
-  --accent-dim: #c0522a14;
+/* Blueprint */
+body.t-blueprint {
+  --bg:         #1a3a6e;
+  --surface:    #1e4278;
+  --surface2:   #0f2040;
+  --sidebar-bg: #122d5a;
+  --topbar-bg:  #1a3a6e;
+  --border:     #2a5090;
+  --text:       #e0ecff;
+  --text-sub:   #6090c0;
+  --card-bg:    #153364;
+  --accent:     #60a5fa;
+  --accent-dim: #60a5fa22;
 }
 
-/* Slate — gris azulado profesional */
+/* Rose */
+body.t-rose {
+  --bg:         #fad0e4;
+  --surface:    #ffffff;
+  --surface2:   #f5c0d8;
+  --sidebar-bg: #f0b0cc;
+  --topbar-bg:  #ffffff;
+  --border:     #e090b4;
+  --text:       #4a0820;
+  --text-sub:   #a04868;
+  --card-bg:    #fff0f6;
+  --accent:     #c01858;
+  --accent-dim: #c0185818;
+}
+
+/* Blush */
+body.t-blush {
+  --bg:         #fce8f0;
+  --surface:    #fff2f7;
+  --surface2:   #f8d8e8;
+  --sidebar-bg: #f5cce0;
+  --topbar-bg:  #fff2f7;
+  --border:     #e8a8c4;
+  --text:       #4a0c28;
+  --text-sub:   #c06888;
+  --card-bg:    #fce0ec;
+  --accent:     #e8608a;
+  --accent-dim: #e8608a18;
+}
+
+/* Sage */
+body.t-sage {
+  --bg:         #8aab8a;
+  --surface:    #96b896;
+  --surface2:   #749474;
+  --sidebar-bg: #6a8a6a;
+  --topbar-bg:  #8aab8a;
+  --border:     #5a7a5a;
+  --text:       #f0f5ee;
+  --text-sub:   #c0d8c0;
+  --card-bg:    #7a9a7a;
+  --accent:     #1a3a1a;
+  --accent-dim: #1a3a1a22;
+}
+
+/* Storm */
+body.t-storm {
+  --bg:         #3d4f6a;
+  --surface:    #445878;
+  --surface2:   #2e3d54;
+  --sidebar-bg: #283448;
+  --topbar-bg:  #3d4f6a;
+  --border:     #3a5070;
+  --text:       #e8f0ff;
+  --text-sub:   #8098c0;
+  --card-bg:    #344460;
+  --accent:     #f5d020;
+  --accent-dim: #f5d02022;
+}
+
+/* Plum */
+body.t-plum {
+  --bg:         #3d1f5a;
+  --surface:    #461e68;
+  --surface2:   #2e1545;
+  --sidebar-bg: #260f3c;
+  --topbar-bg:  #3d1f5a;
+  --border:     #5a2a80;
+  --text:       #ecdcff;
+  --text-sub:   #9a70c0;
+  --card-bg:    #341850;
+  --accent:     #c9a220;
+  --accent-dim: #c9a22022;
+}
+
+/* Terracotta */
+body.t-terracotta {
+  --bg:         #c4674a;
+  --surface:    #ce7258;
+  --surface2:   #b05a3e;
+  --sidebar-bg: #a05038;
+  --topbar-bg:  #c4674a;
+  --border:     #9a4a30;
+  --text:       #fde8e0;
+  --text-sub:   #f0c0a8;
+  --card-bg:    #b85e44;
+  --accent:     #fff5f0;
+  --accent-dim: #ffffff22;
+}
+
+/* Denim */
+body.t-denim {
+  --bg:         #4a6fa5;
+  --surface:    #5c80b8;
+  --surface2:   #3a5a8a;
+  --sidebar-bg: #243e68;
+  --topbar-bg:  #4a6fa5;
+  --border:     #3a5888;
+  --text:       #eaf2ff;
+  --text-sub:   #90b0d8;
+  --card-bg:    #5278b0;
+  --accent:     #ffe080;
+  --accent-dim: #ffe08022;
+}
+
+/* Jade */
+body.t-jade {
+  --bg:         #1a5a4a;
+  --surface:    #1e6855;
+  --surface2:   #124838;
+  --sidebar-bg: #0e3c2c;
+  --topbar-bg:  #1a5a4a;
+  --border:     #2a7060;
+  --text:       #d8f5ee;
+  --text-sub:   #60a890;
+  --card-bg:    #165040;
+  --accent:     #40d4a8;
+  --accent-dim: #40d4a822;
+}
+
+/* Lavender */
+body.t-lavender {
+  --bg:         #ddd0f8;
+  --surface:    #ffffff;
+  --surface2:   #ccc0ec;
+  --sidebar-bg: #b8a8e0;
+  --topbar-bg:  #ffffff;
+  --border:     #a890d0;
+  --text:       #1e0c40;
+  --text-sub:   #6848a0;
+  --card-bg:    #f4f0ff;
+  --accent:     #5820b0;
+  --accent-dim: #5820b018;
+}
+
+/* Ash */
+body.t-ash {
+  --bg:         #b0a898;
+  --surface:    #bcb4a4;
+  --surface2:   #a09888;
+  --sidebar-bg: #908878;
+  --topbar-bg:  #bcb4a4;
+  --border:     #888070;
+  --text:       #1a1410;
+  --text-sub:   #604c3c;
+  --card-bg:    #a8a090;
+  --accent:     #3a3028;
+  --accent-dim: #3a302818;
+}
+
+/* Slate */
 body.t-slate {
-  --bg:         #f0f4f8;
-  --surface:    #ffffff;
-  --surface2:   #e8edf2;
-  --sidebar-bg: #ffffff;
-  --topbar-bg:  #ffffff;
-  --border:     #d1dbe6;
-  --text:       #1e293b;
-  --text-sub:   #64748b;
-  --card-bg:    #f8fafc;
-  --accent:     #475569;
-  --accent-dim: #47556914;
-}
-
-/* Matcha — verde té fresco */
-body.t-matcha {
-  --bg:         #f2f7f2;
-  --surface:    #ffffff;
-  --surface2:   #e8f2e8;
-  --sidebar-bg: #ffffff;
-  --topbar-bg:  #ffffff;
-  --border:     #c8dfc8;
-  --text:       #1a2e1a;
-  --text-sub:   #5a7a5a;
-  --card-bg:    #f5faf5;
-  --accent:     #4a7c59;
-  --accent-dim: #4a7c5914;
-}
-
-/* Dusk — lavanda atardecer */
-body.t-dusk {
-  --bg:         #f5f0ff;
-  --surface:    #ffffff;
-  --surface2:   #ede8ff;
-  --sidebar-bg: #ffffff;
-  --topbar-bg:  #ffffff;
-  --border:     #d8cef5;
-  --text:       #1e1040;
-  --text-sub:   #7c6aaa;
-  --card-bg:    #faf8ff;
-  --accent:     #7c3aed;
-  --accent-dim: #7c3aed14;
-}
-
-/* Amber — dorado energético */
-body.t-amber {
-  --bg:         #fffbf0;
-  --surface:    #ffffff;
-  --surface2:   #fff4d6;
-  --sidebar-bg: #ffffff;
-  --topbar-bg:  #ffffff;
-  --border:     #f0dfa0;
-  --text:       #2a1f00;
-  --text-sub:   #9a7c30;
-  --card-bg:    #fffdf5;
-  --accent:     #d97706;
-  --accent-dim: #d9770614;
+  --bg:         #5a6a7a;
+  --surface:    #627282;
+  --surface2:   #4a5a6a;
+  --sidebar-bg: #3c4c5c;
+  --topbar-bg:  #5a6a7a;
+  --border:     #4a5868;
+  --text:       #eaf0f8;
+  --text-sub:   #90a8c0;
+  --card-bg:    #526070;
+  --accent:     #ff6b35;
+  --accent-dim: #ff6b3522;
 }

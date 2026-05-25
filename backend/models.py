@@ -54,6 +54,7 @@ class Trabajo(SQLModel, table=True):
     prioridad      : Prioridad      = Prioridad.media
     fecha_inicio   : date           = Field(default_factory=date.today)
     fecha_sla      : Optional[date] = None
+    comentarios    : Optional[str]  = None
     creado_en      : datetime       = Field(default_factory=datetime.now)
 
 
@@ -67,6 +68,7 @@ class TrabajoCreate(SQLModel):
     progreso       : int            = 0
     prioridad      : Prioridad      = Prioridad.media
     fecha_sla      : Optional[date] = None
+    comentarios    : Optional[str]  = None
 
 
 class TrabajoUpdate(SQLModel):
@@ -78,6 +80,7 @@ class TrabajoUpdate(SQLModel):
     progreso       : Optional[int]       = None
     prioridad      : Optional[Prioridad] = None
     fecha_sla      : Optional[date]      = None
+    comentarios    : Optional[str]       = None
 
 
 class EstadoUpdate(SQLModel):

@@ -2,7 +2,18 @@
   <div class="desglose">
     <div class="desglose-header">
       <h3 class="desglose-title">Desglose completo</h3>
-      <span class="desglose-count">{{ trabajos.length }} trabajos</span>
+      <div class="filtros-estado">
+        <button
+          v-for="(cfg, key) in ESTADOS" :key="key"
+          class="filtro-btn"
+          :class="{ activo: filtrosActivos.has(key) }"
+          @click="toggleFiltro(key)"
+        >
+          <span class="filtro-dot" :style="{ background: filtrosActivos.has(key) ? cfg.color : 'var(--border)' }"></span>
+          {{ cfg.label }}
+        </button>
+      </div>
+      <span class="desglose-count">{{ trabajosFiltrados.length }} trabajos</span>
     </div>
 
     <div class="table-wrap">
@@ -19,7 +30,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="t in trabajos" :key="t.id" class="data-row" @click="$emit('editar', t)">
+          <tr v-for="t in trabajosFiltrados" :key="t.id" class="data-row" @click="$emit('editar', t)">
             <td>
               <div class="resp-cell" v-if="usuario(t.responsable_id)">
                 <div class="mini-av"
@@ -57,14 +68,13 @@
 </template>
 
 <script setup>
+import { reactive, computed } from 'vue'
+
 const props = defineProps({
   trabajos: { type: Array, default: () => [] },
   usuarios: { type: Array, default: () => [] },
 })
 defineEmits(['editar'])
-
-const usuario   = (id) => props.usuarios.find(u => u.id === id)
-const fmtFecha  = (f) => f ? f.split('-').reverse().join('-') : '—'
 
 const ESTADOS = {
   por_comenzar: { label: 'Por comenzar', color: '#636466' },
@@ -73,6 +83,23 @@ const ESTADOS = {
   pendiente:    { label: 'Pendiente',    color: '#f97316' },
   completado:   { label: 'Completado',   color: '#10b981' },
 }
+
+const filtrosActivos = reactive(new Set(Object.keys(ESTADOS)))
+
+function toggleFiltro(key) {
+  if (filtrosActivos.has(key)) {
+    if (filtrosActivos.size > 1) filtrosActivos.delete(key)
+  } else {
+    filtrosActivos.add(key)
+  }
+}
+
+const trabajosFiltrados = computed(() =>
+  props.trabajos.filter(t => filtrosActivos.has(t.estado))
+)
+
+const usuario   = (id) => props.usuarios.find(u => u.id === id)
+const fmtFecha  = (f) => f ? f.split('-').reverse().join('-') : '—'
 const estadoLabel = (e) => ESTADOS[e]?.label || e
 const estadoColor = (e) => ESTADOS[e]?.color || '#636466'
 const progColor   = (p) => p >= 75 ? '#10b981' : p >= 40 ? '#f59e0b' : '#636466'
@@ -86,11 +113,26 @@ const progColor   = (p) => p >= 75 ? '#10b981' : p >= 40 ? '#f59e0b' : '#636466'
   overflow: hidden;
 }
 .desglose-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 14px 18px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 12px 18px; border-bottom: 1px solid var(--border);
 }
-.desglose-title { font-size: 13px; font-weight: 700; color: var(--text); }
-.desglose-count { font-size: 11px; color: var(--text-sub); }
+.desglose-title { font-size: 13px; font-weight: 700; color: var(--text); flex-shrink: 0; }
+.desglose-count { font-size: 11px; color: var(--text-sub); margin-left: auto; flex-shrink: 0; }
+
+.filtros-estado { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+.filtro-btn {
+  display: flex; align-items: center; gap: 5px;
+  padding: 4px 9px; border-radius: 20px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-sub);
+  font-size: 10px; font-weight: 600;
+  cursor: pointer; transition: all 0.15s;
+  white-space: nowrap; opacity: 0.45;
+}
+.filtro-btn:hover { opacity: 0.75; }
+.filtro-btn.activo { opacity: 1; color: var(--text); border-color: var(--border); background: var(--surface2); }
+.filtro-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; }

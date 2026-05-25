@@ -4,7 +4,7 @@
     <TopBar titulo="Gestión" sub="Tablero por estado" @nuevo="abrirModal(null)" />
     <div class="view-content">
       <KanbanBoard
-        :trabajos="trabajos"
+        :trabajos="trabajosFiltrados"
         :usuarios="usuarios"
         @editar="abrirModal"
         @actualizado="cargarDatos"
@@ -14,10 +14,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { getUsuarios } from '../api/usuarios'
 import { getTrabaj }   from '../api/trabajos'
 import { useFiltros }  from '../composables/useFiltros'
+import { useAuth }     from '../composables/useAuth'
 import TopBar       from '../components/TopBar.vue'
 import KanbanBoard  from '../components/KanbanBoard.vue'
 import TrabajoModal from '../components/TrabajoModal.vue'
@@ -27,6 +28,12 @@ const trabajos = ref([])
 const modalAbierto        = ref(false)
 const trabajoSeleccionado = ref(null)
 const { filtros }         = useFiltros()
+const { user, isGerente } = useAuth()
+
+const trabajosFiltrados = computed(() => {
+  if (isGerente.value) return trabajos.value
+  return trabajos.value.filter(t => t.responsable_id === user.value?.usuario_id)
+})
 
 async function cargarDatos() {
   [usuarios.value, trabajos.value] = await Promise.all([

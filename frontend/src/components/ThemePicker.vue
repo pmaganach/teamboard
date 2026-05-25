@@ -22,13 +22,13 @@
 import { ref } from 'vue'
 
 const temas = [
-  { id: 't-light',     nombre: 'Claro',      color: '#e0e0e0' },
-  { id: 't-dark',      nombre: 'Oscuro',     color: '#252525' },
-  { id: 't-terracota', nombre: 'Terracota',  color: '#c0522a' },
-  { id: 't-slate',     nombre: 'Slate',      color: '#475569' },
-  { id: 't-matcha',    nombre: 'Matcha',     color: '#4a7c59' },
-  { id: 't-dusk',      nombre: 'Dusk',       color: '#7c3aed' },
-  { id: 't-amber',     nombre: 'Amber',      color: '#d97706' },
+  { id: 't-light',      nombre: 'Claro',       color: '#e0e0e0' },
+  { id: 't-dark',       nombre: 'Oscuro',      color: '#252525' },
+  { id: 't-rose',     nombre: 'Rose',     color: '#d4407a' },
+  { id: 't-storm',    nombre: 'Storm',    color: '#3d4f6a' },
+  { id: 't-plum',     nombre: 'Plum',     color: '#3d1f5a' },
+  { id: 't-denim',    nombre: 'Denim',    color: '#4a6fa5' },
+  { id: 't-jade',     nombre: 'Jade',     color: '#1a5a4a' },
 ]
 
 const temaActivo = ref(localStorage.getItem('tema') || 't-light')

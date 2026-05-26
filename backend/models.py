@@ -23,6 +23,19 @@ class Rol(str, Enum):
     gerente  = "gerente"
 
 
+class Magnitud(str, Enum):
+    rapido   = "rapido"
+    moderado = "moderado"
+    extenso  = "extenso"
+    complejo = "complejo"
+
+
+class TipoTrabajo(str, Enum):
+    puntual    = "puntual"
+    recurrente = "recurrente"
+    iniciativa = "iniciativa"
+
+
 # ─── USUARIO ───────────────────────────────────────────
 class Usuario(SQLModel, table=True):
     id        : Optional[int] = Field(default=None, primary_key=True)
@@ -51,11 +64,13 @@ class Trabajo(SQLModel, table=True):
     area_equipo    : Optional[str]  = None
     estado         : Estado         = Estado.por_comenzar
     progreso       : int            = 0
-    prioridad      : Prioridad      = Prioridad.media
-    fecha_inicio   : date           = Field(default_factory=date.today)
-    fecha_sla      : Optional[date] = None
-    comentarios    : Optional[str]  = None
-    creado_en      : datetime       = Field(default_factory=datetime.now)
+    prioridad      : Prioridad           = Prioridad.media
+    magnitud       : Optional[Magnitud]  = None
+    tipo           : Optional[TipoTrabajo] = None
+    fecha_inicio   : date                = Field(default_factory=date.today)
+    fecha_sla      : Optional[date]      = None
+    comentarios    : Optional[str]       = None
+    creado_en      : datetime            = Field(default_factory=datetime.now)
 
 
 # Esquemas para crear/editar (sin id ni fechas automáticas)
@@ -66,21 +81,25 @@ class TrabajoCreate(SQLModel):
     area_equipo    : Optional[str]  = None
     estado         : Estado         = Estado.por_comenzar
     progreso       : int            = 0
-    prioridad      : Prioridad      = Prioridad.media
-    fecha_sla      : Optional[date] = None
-    comentarios    : Optional[str]  = None
+    prioridad      : Prioridad              = Prioridad.media
+    magnitud       : Optional[Magnitud]    = None
+    tipo           : Optional[TipoTrabajo] = None
+    fecha_sla      : Optional[date]        = None
+    comentarios    : Optional[str]         = None
 
 
 class TrabajoUpdate(SQLModel):
-    nombre         : Optional[str]       = None
-    area_cliente   : Optional[str]       = None
-    responsable_id : Optional[int]       = None
-    area_equipo    : Optional[str]       = None
-    estado         : Optional[Estado]    = None
-    progreso       : Optional[int]       = None
-    prioridad      : Optional[Prioridad] = None
-    fecha_sla      : Optional[date]      = None
-    comentarios    : Optional[str]       = None
+    nombre         : Optional[str]          = None
+    area_cliente   : Optional[str]          = None
+    responsable_id : Optional[int]          = None
+    area_equipo    : Optional[str]          = None
+    estado         : Optional[Estado]       = None
+    progreso       : Optional[int]          = None
+    prioridad      : Optional[Prioridad]    = None
+    magnitud       : Optional[Magnitud]     = None
+    tipo           : Optional[TipoTrabajo]  = None
+    fecha_sla      : Optional[date]         = None
+    comentarios    : Optional[str]          = None
 
 
 class EstadoUpdate(SQLModel):

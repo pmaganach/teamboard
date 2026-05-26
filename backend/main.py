@@ -61,6 +61,22 @@ def test_viernes():
     return {"ok": True, "mensaje": "Correo de viernes enviado (modo prueba)"}
 
 
+@app.post("/test-otp-email")
+def test_otp_email():
+    import requests as req
+    r = req.post("https://mandrillapp.com/api/1.0/messages/send", json={
+        "key": "md-rp04UbY-hAubEFDAx4MbYQ",
+        "message": {
+            "from_email": "noreply@verisure.cl",
+            "from_name": "Bitacora",
+            "to": [{"email": "pablo.magana@verisure.cl", "name": "Pablo"}],
+            "subject": "Test desde uvicorn",
+            "html": "<p>Este correo lo mando el backend uvicorn directamente.</p>"
+        }
+    }, timeout=10)
+    return {"status": r.status_code, "body": r.json()}
+
+
 @app.get("/")
 def root():
     return {"status": "ok", "app": "TeamBoard API"}

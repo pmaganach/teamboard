@@ -9,9 +9,9 @@ import requests
 from datetime import date, timedelta
 from sqlmodel import Session, select
 from database import engine
-from models import Trabajo, UserAuth, Estado
+from models import Trabajo, UserAuth, Usuario, Estado, Rol
 
-MANDRILL_API_KEY = "md-c5Cl5K6R5KA67QO5PML3mQ"
+MANDRILL_API_KEY = "md-rp04UbY-hAubEFDAx4MbYQ"
 FROM_EMAIL       = "noreply@verisure.cl"
 FROM_NAME        = "Bitácora · Customer Intelligence"
 APP_URL          = "http://localhost:5173"
@@ -179,6 +179,83 @@ def _get_usuarios(session: Session):
     return session.exec(select(UserAuth)).all()
 
 
+def _es_gerente(user: UserAuth, session: Session) -> bool:
+    if not user.usuario_id:
+        return False
+    u = session.get(Usuario, user.usuario_id)
+    return u is not None and u.rol == Rol.gerente
+
+
+# ── REPORTE GERENTE ────────────────────────────────────────────────
+def _analista_seccion(nombre: str, trabajos, hoy: date, highlight_fn) -> str:
+    iniciales = "".join(p[0].upper() for p in nombre.split()[:2])
+    rows = "".join(highlight_fn(t, hoy) for t in trabajos)
+    total = len(trabajos)
+    prog_avg = int(sum(t.progreso for t in trabajos) / total) if total else 0
+    return f"""
+    <div style="margin-bottom:20px;border:1px solid #f0f0f0;border-radius:12px;overflow:hidden">
+      <div style="background:#f8f8f8;padding:12px 16px;display:flex;align-items:center">
+        <div style="width:30px;height:30px;border-radius:50%;background:#AB002018;color:#AB0020;font-size:11px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;margin-right:10px;flex-shrink:0">{iniciales}</div>
+        <span style="font-size:13px;font-weight:700;color:#1a1a1a">{nombre}</span>
+        <span style="margin-left:auto;font-size:11px;color:#888">{total} activo{'s' if total!=1 else ''} &middot; Prom. {prog_avg}%</span>
+      </div>
+      <div style="padding:12px 14px">
+        {rows}
+      </div>
+    </div>"""
+
+
+def _html_reporte_gerente(titulo: str, subtitulo: str, acento: str, emoji: str,
+                           intro: str, analistas_data: list) -> str:
+    hoy = date.today()
+    total_global   = sum(d['total'] for d in analistas_data)
+    riesgo_global  = sum(d['riesgo'] for d in analistas_data)
+    secciones = "".join(d['html'] for d in analistas_data)
+
+    resumen = f"""
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px">
+      <tr>
+        <td align="center" style="padding:0 6px">
+          <div style="background:#f8f8f8;border-radius:10px;padding:14px 10px;text-align:center">
+            <div style="font-size:22px;font-weight:800;color:#1a1a1a">{total_global}</div>
+            <div style="font-size:10px;color:#888;margin-top:2px">Trabajos activos</div>
+          </div>
+        </td>
+        <td align="center" style="padding:0 6px">
+          <div style="background:#fde8e8;border-radius:10px;padding:14px 10px;text-align:center">
+            <div style="font-size:22px;font-weight:800;color:#ED002F">{riesgo_global}</div>
+            <div style="font-size:10px;color:#ED002F;margin-top:2px">SLA en riesgo</div>
+          </div>
+        </td>
+        <td align="center" style="padding:0 6px">
+          <div style="background:#f8f8f8;border-radius:10px;padding:14px 10px;text-align:center">
+            <div style="font-size:22px;font-weight:800;color:#1a1a1a">{len(analistas_data)}</div>
+            <div style="font-size:10px;color:#888;margin-top:2px">Analistas activos</div>
+          </div>
+        </td>
+      </tr>
+    </table>"""
+
+    return f"""
+    <table width="100%" cellpadding="0" cellspacing="0" style="max-width:620px;margin:0 auto;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.10);font-family:-apple-system,'Segoe UI',Arial,sans-serif">
+      {_header(titulo, subtitulo, acento, emoji)}
+      <tr>
+        <td style="background:#ffffff;padding:32px 36px">
+          <p style="margin:0 0 6px;font-size:15px;font-weight:700;color:#1a1a1a">Hola An&iacute;bal,</p>
+          <p style="margin:0 0 24px;font-size:13px;color:#666;line-height:1.6">{intro}</p>
+          <div style="height:1px;background:#f0f0f0;margin-bottom:24px"></div>
+          {resumen}
+          <div style="margin-bottom:8px">
+            {_section_title("Estado del equipo", acento)}
+          </div>
+          {secciones}
+          {_cta("Ver Bit&aacute;cora completa", acento)}
+        </td>
+      </tr>
+      {_footer()}
+    </table>"""
+
+
 # ══════════════════════════════════════════════════════════════════
 # LUNES — Resumen semanal
 # ══════════════════════════════════════════════════════════════════
@@ -227,15 +304,41 @@ def job_lunes():
     hoy = date.today()
     fin_semana = hoy + timedelta(days=7)
     with Session(engine) as session:
-        for user in _get_usuarios(session):
-            if not user.usuario_id:
+        usuarios = _get_usuarios(session)
+        # Reporte gerente
+        analistas_data = []
+        for user in usuarios:
+            if not user.usuario_id or _es_gerente(user, session):
                 continue
             trabajos = _get_trabajos_de(user.usuario_id, session)
             if not trabajos:
                 continue
-            en_riesgo = [t for t in trabajos if t.fecha_sla and t.fecha_sla <= fin_semana]
-            html = _html_lunes(user.nombre, trabajos, en_riesgo)
-            _send(user.email, user.nombre, f"📋 Resumen semanal · {hoy.strftime('%d/%m')} — Bit\u00e1cora", html)
+            riesgo = [t for t in trabajos if t.fecha_sla and t.fecha_sla <= fin_semana]
+            def hl(t, hoy=hoy, fin=fin_semana):
+                u = t.fecha_sla and (t.fecha_sla - hoy).days <= 7
+                w = t.fecha_sla and 7 < (t.fecha_sla - hoy).days <= 14
+                return _trabajo_card(t, urgente=u, warn=w)
+            analistas_data.append({
+                'total': len(trabajos), 'riesgo': len(riesgo),
+                'html': _analista_seccion(user.nombre, trabajos, hoy, hl)
+            })
+        # Envío
+        for user in usuarios:
+            if not user.usuario_id:
+                continue
+            if _es_gerente(user, session):
+                if not analistas_data:
+                    continue
+                intro = f"Aqu&iacute; tienes el estado del equipo para arrancar la semana. {sum(d['total'] for d in analistas_data)} trabajos activos en total, {sum(d['riesgo'] for d in analistas_data)} con SLA en riesgo esta semana."
+                html = _html_reporte_gerente("Reporte semanal del equipo", f"Semana del {hoy.strftime('%d de %B, %Y')}", "#ED002F", "📊", intro, analistas_data)
+                _send(user.email, user.nombre, f"📊 Reporte semanal del equipo · {hoy.strftime('%d/%m')} — Bit\u00e1cora", html)
+            else:
+                trabajos = _get_trabajos_de(user.usuario_id, session)
+                if not trabajos:
+                    continue
+                en_riesgo = [t for t in trabajos if t.fecha_sla and t.fecha_sla <= fin_semana]
+                html = _html_lunes(user.nombre, trabajos, en_riesgo)
+                _send(user.email, user.nombre, f"📋 Resumen semanal · {hoy.strftime('%d/%m')} — Bit\u00e1cora", html)
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -297,16 +400,41 @@ def job_miercoles():
     hoy = date.today()
     limite_sla = hoy + timedelta(days=7)
     with Session(engine) as session:
-        for user in _get_usuarios(session):
-            if not user.usuario_id:
+        usuarios = _get_usuarios(session)
+        analistas_data = []
+        for user in usuarios:
+            if not user.usuario_id or _es_gerente(user, session):
                 continue
             trabajos = _get_trabajos_de(user.usuario_id, session)
             if not trabajos:
                 continue
+            riesgo = [t for t in trabajos if t.fecha_sla and t.fecha_sla <= limite_sla]
             sin_avance = [t for t in trabajos if t.progreso <= 25]
-            en_riesgo  = [t for t in trabajos if t.fecha_sla and t.fecha_sla <= limite_sla]
-            html = _html_miercoles(user.nombre, trabajos, sin_avance, en_riesgo)
-            _send(user.email, user.nombre, "⚡ Seguimiento mid-week — Bit\u00e1cora", html)
+            def hl(t, hoy=hoy, lim=limite_sla):
+                u = t.fecha_sla and t.fecha_sla <= lim
+                w = t.progreso <= 25
+                return _trabajo_card(t, urgente=u, warn=w and not u)
+            analistas_data.append({
+                'total': len(trabajos), 'riesgo': len(riesgo),
+                'html': _analista_seccion(user.nombre, trabajos, hoy, hl)
+            })
+        for user in usuarios:
+            if not user.usuario_id:
+                continue
+            if _es_gerente(user, session):
+                if not analistas_data:
+                    continue
+                intro = f"A mitad de semana, aqu&iacute; tienes el seguimiento del equipo. {sum(d['riesgo'] for d in analistas_data)} trabajo(s) con SLA en riesgo esta semana."
+                html = _html_reporte_gerente("Seguimiento mid-week", f"Mi&eacute;rcoles {hoy.strftime('%d de %B, %Y')}", "#f59e0b", "⚡", intro, analistas_data)
+                _send(user.email, user.nombre, "⚡ Seguimiento mid-week del equipo — Bit\u00e1cora", html)
+            else:
+                trabajos = _get_trabajos_de(user.usuario_id, session)
+                if not trabajos:
+                    continue
+                sin_avance = [t for t in trabajos if t.progreso <= 25]
+                en_riesgo  = [t for t in trabajos if t.fecha_sla and t.fecha_sla <= limite_sla]
+                html = _html_miercoles(user.nombre, trabajos, sin_avance, en_riesgo)
+                _send(user.email, user.nombre, "⚡ Seguimiento mid-week — Bit\u00e1cora", html)
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -350,16 +478,40 @@ def _html_viernes(nombre: str, trabajos, sin_actualizar) -> str:
 
 
 def job_viernes():
+    hoy = date.today()
     with Session(engine) as session:
-        for user in _get_usuarios(session):
-            if not user.usuario_id:
+        usuarios = _get_usuarios(session)
+        analistas_data = []
+        for user in usuarios:
+            if not user.usuario_id or _es_gerente(user, session):
                 continue
             trabajos = _get_trabajos_de(user.usuario_id, session)
             if not trabajos:
                 continue
-            sin_actualizar = [t for t in trabajos if t.progreso == 0 or t.estado == Estado.por_comenzar]
-            html = _html_viernes(user.nombre, trabajos, sin_actualizar)
-            _send(user.email, user.nombre, "✅ ¿Todo al d&iacute;a antes del fin de semana? — Bit\u00e1cora", html)
+            sin_act = [t for t in trabajos if t.progreso == 0 or t.estado == Estado.por_comenzar]
+            def hl(t, sa=sin_act):
+                return _trabajo_card(t, warn=(t in sa))
+            analistas_data.append({
+                'total': len(trabajos), 'riesgo': len(sin_act),
+                'html': _analista_seccion(user.nombre, trabajos, hoy, hl)
+            })
+        for user in usuarios:
+            if not user.usuario_id:
+                continue
+            if _es_gerente(user, session):
+                if not analistas_data:
+                    continue
+                sin_act_total = sum(d['riesgo'] for d in analistas_data)
+                intro = f"Aqu&iacute; tienes el cierre de semana del equipo. {sin_act_total} trabajo(s) sin actualizaci&oacute;n &mdash; buen momento para hacer seguimiento antes del fin de semana."
+                html = _html_reporte_gerente("Cierre de semana", f"Viernes {hoy.strftime('%d de %B, %Y')}", "#10b981", "📋", intro, analistas_data)
+                _send(user.email, user.nombre, "📋 Cierre de semana del equipo — Bit\u00e1cora", html)
+            else:
+                trabajos = _get_trabajos_de(user.usuario_id, session)
+                if not trabajos:
+                    continue
+                sin_actualizar = [t for t in trabajos if t.progreso == 0 or t.estado == Estado.por_comenzar]
+                html = _html_viernes(user.nombre, trabajos, sin_actualizar)
+                _send(user.email, user.nombre, "✅ \u00bfTodo al d\u00eda antes del fin de semana? — Bit\u00e1cora", html)
 
 
 # ══════════════════════════════════════════════════════════════════

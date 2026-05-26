@@ -16,8 +16,8 @@
             <input v-model="form.nombre" placeholder="Ej: Dashboard Comercial" />
           </div>
 
-          <!-- Área + Responsable en fila -->
-          <div class="campo-fila">
+          <!-- Área + Responsable en fila (responsable solo para gerente) -->
+          <div :class="isGerente ? 'campo-fila' : 'campo'">
             <div class="campo">
               <label>Área *</label>
               <select v-model="form.area_cliente">
@@ -25,7 +25,7 @@
                 <option v-for="a in areas" :key="a.id" :value="a.nombre">{{ a.icono }} {{ a.nombre }}</option>
               </select>
             </div>
-            <div class="campo">
+            <div class="campo" v-if="isGerente">
               <label>Responsable *</label>
               <div class="avatares">
                 <!-- Opción equipo (visible para analistas) -->
@@ -94,6 +94,36 @@
                 :style="form.prioridad === key ? { background: cfg.color + '18', color: cfg.color, borderColor: cfg.color + '60' } : {}"
                 :disabled="!esMiTrabajo"
                 @click="form.prioridad = key"
+              >{{ cfg.label }}</button>
+            </div>
+          </div>
+
+          <!-- Magnitud pills -->
+          <div class="campo">
+            <label>Magnitud</label>
+            <div class="pills-generic">
+              <button
+                v-for="(cfg, key) in MAGNITUDES" :key="key"
+                class="pill-generic"
+                :class="{ active: form.magnitud === key }"
+                :style="form.magnitud === key ? { background: cfg.color + '18', color: cfg.color, borderColor: cfg.color + '60' } : {}"
+                :disabled="!esMiTrabajo"
+                @click="form.magnitud = form.magnitud === key ? null : key"
+              >{{ cfg.label }}</button>
+            </div>
+          </div>
+
+          <!-- Tipo pills -->
+          <div class="campo">
+            <label>Tipo</label>
+            <div class="pills-generic">
+              <button
+                v-for="(cfg, key) in TIPOS" :key="key"
+                class="pill-generic"
+                :class="{ active: form.tipo === key }"
+                :style="form.tipo === key ? { background: cfg.color + '18', color: cfg.color, borderColor: cfg.color + '60' } : {}"
+                :disabled="!esMiTrabajo"
+                @click="form.tipo = form.tipo === key ? null : key"
               >{{ cfg.label }}</button>
             </div>
           </div>
@@ -173,6 +203,19 @@ const PRIORIDADES = {
   alta:  { label: 'Alta',  color: '#ED002F' },
 }
 
+const MAGNITUDES = {
+  rapido:   { label: 'Rápido',   color: '#10b981' },
+  moderado: { label: 'Moderado', color: '#3b82f6' },
+  extenso:  { label: 'Extenso',  color: '#f59e0b' },
+  complejo: { label: 'Complejo', color: '#ED002F' },
+}
+
+const TIPOS = {
+  puntual:    { label: 'Puntual',    color: '#6366f1' },
+  recurrente: { label: 'Recurrente', color: '#f97316' },
+  iniciativa: { label: 'Iniciativa', color: '#0ea5e9' },
+}
+
 const areas     = reactive([])
 const analistas = reactive([])
 const miUsuario = computed(() => analistas.find(u => u.id === user.value?.usuario_id) || null)
@@ -185,6 +228,8 @@ const form = reactive({
   area_equipo:    null,
   estado:         null,
   prioridad:      null,
+  magnitud:       null,
+  tipo:           null,
   progreso:       null,
   fecha_inicio:   new Date().toISOString().split('T')[0],
   fecha_sla:      null,
@@ -210,6 +255,8 @@ onMounted(async () => {
       area_equipo:    props.trabajo.area_equipo,
       estado:         props.trabajo.estado,
       prioridad:      props.trabajo.prioridad,
+      magnitud:       props.trabajo.magnitud   || null,
+      tipo:           props.trabajo.tipo       || null,
       progreso:       props.trabajo.progreso,
       fecha_inicio:   props.trabajo.fecha_inicio,
       fecha_sla:      props.trabajo.fecha_sla,
@@ -231,6 +278,8 @@ async function guardar() {
     area_equipo:    form.area_equipo,
     estado:         form.estado,
     prioridad:      form.prioridad,
+    magnitud:       form.magnitud  || null,
+    tipo:           form.tipo      || null,
     progreso:       form.progreso,
     fecha_inicio:   form.fecha_inicio || null,
     fecha_sla:      form.fecha_sla || null,
@@ -365,6 +414,18 @@ function cerrar() {
 }
 .pill-prio:hover:not(:disabled) { color: var(--text); border-color: var(--text-sub); }
 .pill-prio:disabled { cursor: default; opacity: 0.5; }
+
+/* ── Magnitud / Tipo pills genéricos ── */
+.pills-generic { display: flex; gap: 6px; flex-wrap: wrap; }
+.pill-generic {
+  flex: 1; padding: 7px; border-radius: 8px;
+  font-size: 11px; font-weight: 700; text-align: center;
+  border: 1px solid var(--border);
+  background: transparent; color: var(--text-sub);
+  cursor: pointer; transition: all 0.15s; white-space: nowrap;
+}
+.pill-generic:hover:not(:disabled) { color: var(--text); border-color: var(--text-sub); }
+.pill-generic:disabled { cursor: default; opacity: 0.5; }
 
 /* ── Progreso segmentado ── */
 .prog-segs { display: flex; gap: 5px; }

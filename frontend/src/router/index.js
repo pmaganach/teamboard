@@ -2,14 +2,16 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Dashboard from '../views/Dashboard.vue'
 import Agenda    from '../views/Agenda.vue'
 import Kanban    from '../views/Kanban.vue'
+import Analitica from '../views/Analitica.vue'
 import Login     from '../views/Login.vue'
 
 const routes = [
   { path: '/login',     component: Login,     meta: { public: true } },
   { path: '/',          redirect: '/dashboard' },
-  { path: '/dashboard', component: Dashboard },
-  { path: '/agenda',    component: Agenda    },
-  { path: '/kanban',    component: Kanban    },
+  { path: '/dashboard', component: Dashboard  },
+  { path: '/agenda',    component: Agenda     },
+  { path: '/kanban',    component: Kanban     },
+  { path: '/analitica', component: Analitica  },
 ]
 
 const router = createRouter({

@@ -2,10 +2,12 @@
   <header class="topbar">
     <div class="topbar-left">
       <h1 class="topbar-title">{{ titulo }}</h1>
-      <span class="topbar-sub">{{ sub }}</span>
+      <span v-if="subtitulo" class="topbar-subtitulo">{{ subtitulo }}</span>
     </div>
-    <div class="topbar-right">
+    <div class="topbar-right" v-if="!hideControls">
       <slot name="filtros" />
+
+      <span v-if="sub" class="topbar-fecha">{{ sub }}</span>
 
       <!-- Filtros de fecha globales -->
       <div class="filtros-fecha">
@@ -29,8 +31,10 @@
 import { useFiltros } from '../composables/useFiltros'
 
 defineProps({
-  titulo: { type: String, default: 'TeamBoard' },
-  sub:    { type: String, default: '' },
+  titulo:       { type: String,  default: 'TeamBoard' },
+  subtitulo:    { type: String,  default: '' },
+  sub:          { type: String,  default: '' },
+  hideControls: { type: Boolean, default: false },
 })
 defineEmits(['nuevo'])
 
@@ -46,8 +50,9 @@ const { desde, hasta, limpiar } = useFiltros()
   gap: 16px; flex-wrap: wrap;
 }
 .topbar-left { display: flex; align-items: baseline; gap: 10px; }
-.topbar-title { font-size: 16px; font-weight: 700; color: var(--text); }
-.topbar-sub   { font-size: 11px; color: var(--text-sub); }
+.topbar-title     { font-size: 16px; font-weight: 700; color: var(--text); }
+.topbar-subtitulo { font-size: 11px; color: var(--text-sub); font-weight: 500; }
+.topbar-fecha     { font-size: 11px; color: var(--text-sub); white-space: nowrap; }
 
 .topbar-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 

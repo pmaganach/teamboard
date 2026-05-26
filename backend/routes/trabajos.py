@@ -21,8 +21,8 @@ def listar_trabajos(
     if analista_id : query = query.where(Trabajo.responsable_id == analista_id)
     if estado      : query = query.where(Trabajo.estado == estado)
     if area        : query = query.where(Trabajo.area_cliente == area)
-    if hasta       : query = query.where(Trabajo.fecha_inicio <= hasta)
-    if desde       : query = query.where((Trabajo.fecha_sla >= desde) | (Trabajo.fecha_sla == None))
+    if hasta       : query = query.where((Trabajo.fecha_inicio <= hasta) | (Trabajo.fecha_inicio == None))
+    if desde       : query = query.where((Trabajo.fecha_sla >= desde)   | (Trabajo.fecha_sla == None))
     return session.exec(query).all()
 
 

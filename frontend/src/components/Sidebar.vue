@@ -22,6 +22,9 @@
       <router-link to="/kanban" class="nav-item" :class="{ active: ruta === '/kanban' }">
         <span class="nav-icon">🗂️</span> Gestión
       </router-link>
+      <router-link to="/analitica" class="nav-item" :class="{ active: ruta === '/analitica' }">
+        <span class="nav-icon">📈</span> Analítica
+      </router-link>
     </nav>
 
     <div class="divider"></div>

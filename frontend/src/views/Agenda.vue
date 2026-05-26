@@ -1,7 +1,7 @@
 <template>
   <div class="view-wrapper">
     <TrabajoModal v-if="modalAbierto" :trabajo="trabajoSeleccionado" @cerrar="modalAbierto = false" @actualizado="recargar" />
-    <TopBar titulo="Agenda" sub="Vista semanal del equipo" @nuevo="abrirModal(null)">
+    <TopBar titulo="Agenda" subtitulo="Vista semanal del equipo" @nuevo="abrirModal(null)">
       <template #filtros>
         <div class="week-nav">
           <button class="nav-btn" @click="cambiarSemana(-1)">&#8249;</button>
@@ -9,13 +9,25 @@
           <button class="nav-btn" @click="cambiarSemana(1)">&#8250;</button>
           <button class="nav-btn hoy-btn" @click="irAHoy">Hoy</button>
         </div>
+        <div class="vista-toggle">
+          <button :class="{ active: vistaAgenda === 'equipo' }" @click="vistaAgenda = 'equipo'">Equipo</button>
+          <button :class="{ active: vistaAgenda === 'areas' }"  @click="vistaAgenda = 'areas'">Áreas</button>
+        </div>
       </template>
     </TopBar>
 
     <div class="view-content">
       <AgendaGrid
+        v-if="vistaAgenda === 'equipo'"
         :dias="dias"
         :personas="analistas"
+        :trabajos="trabajos"
+        @editar="abrirModal"
+      />
+      <AgendaGridAreas
+        v-else
+        :dias="dias"
+        :areas="areas"
         :trabajos="trabajos"
         @editar="abrirModal"
       />
@@ -26,14 +38,18 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { getUsuarios } from '../api/usuarios'
+import { getAreas }    from '../api/areas'
 import { getTrabaj }   from '../api/trabajos'
-import TopBar        from '../components/TopBar.vue'
-import AgendaGrid    from '../components/AgendaGrid.vue'
-import TrabajoModal  from '../components/TrabajoModal.vue'
+import TopBar           from '../components/TopBar.vue'
+import AgendaGrid       from '../components/AgendaGrid.vue'
+import AgendaGridAreas  from '../components/AgendaGridAreas.vue'
+import TrabajoModal     from '../components/TrabajoModal.vue'
 
 const usuarios = ref([])
+const areas    = ref([])
 const trabajos = ref([])
-const analistas = computed(() => usuarios.value.filter(u => u.rol === 'analista'))
+const analistas    = computed(() => usuarios.value.filter(u => u.rol === 'analista'))
+const vistaAgenda  = ref('equipo')
 const modalAbierto        = ref(false)
 const trabajoSeleccionado = ref(null)
 
@@ -71,9 +87,10 @@ const dias = computed(() => {
     const iso = d.toISOString().slice(0, 10)
     return {
       iso,
-      nombre: DIAS_NOMBRE[i],
-      num:    d.getDate(),
-      esHoy:  iso === hoyISO,
+      nombre:  DIAS_NOMBRE[i],
+      num:     d.getDate(),
+      esHoy:   iso === hoyISO,
+      esFinde: i >= 5,
     }
   })
 })
@@ -86,8 +103,8 @@ const semanaLabel = computed(() => {
 
 // ── Carga de datos ────────────────────────────────────
 async function recargar() {
-  [usuarios.value, trabajos.value] = await Promise.all([
-    getUsuarios(), getTrabaj()
+  [usuarios.value, areas.value, trabajos.value] = await Promise.all([
+    getUsuarios(), getAreas(), getTrabaj()
   ])
 }
 onMounted(recargar)
@@ -115,4 +132,17 @@ function abrirModal(trabajo) {
   font-size: 12px; font-weight: 700; color: var(--text);
   min-width: 160px; text-align: center; text-transform: capitalize;
 }
+
+.vista-toggle {
+  display: flex; gap: 2px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; padding: 3px;
+}
+.vista-toggle button {
+  padding: 5px 12px; border-radius: 6px;
+  font-size: 11px; font-weight: 600; color: var(--text-sub);
+  transition: background 0.15s, color 0.15s;
+}
+.vista-toggle button:hover  { color: var(--text); }
+.vista-toggle button.active { background: var(--accent); color: #fff; }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="view-wrapper">
-    <TopBar titulo="Inicio" :sub="fechaHoy" @nuevo="abrirModal(null)" />
+    <TopBar titulo="Inicio" subtitulo="Resumen general" :sub="fechaHoy" @nuevo="abrirModal(null)" />
     <TrabajoModal v-if="modalAbierto" :trabajo="trabajoSeleccionado" @cerrar="modalAbierto = false" @actualizado="recargar" />
 
     <div class="view-content">

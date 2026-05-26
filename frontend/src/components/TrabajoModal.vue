@@ -16,8 +16,8 @@
             <input v-model="form.nombre" placeholder="Ej: Dashboard Comercial" />
           </div>
 
-          <!-- Área + Responsable (gerente) en fila -->
-          <div :class="isGerente ? 'campo-fila' : ''">
+          <!-- Área + Responsable en fila -->
+          <div class="campo-fila">
             <div class="campo">
               <label>Área *</label>
               <select v-model="form.area_cliente">
@@ -25,23 +25,43 @@
                 <option v-for="a in areas" :key="a.id" :value="a.nombre">{{ a.icono }} {{ a.nombre }}</option>
               </select>
             </div>
-            <div class="campo" v-if="isGerente">
+            <div class="campo">
               <label>Responsable *</label>
               <div class="avatares">
+                <!-- Opción equipo (visible para analistas) -->
                 <div
-                  class="av av-none"
+                  v-if="!isGerente"
+                  class="av av-equipo"
                   :class="{ selected: form.responsable_id === null }"
                   @click="form.responsable_id = null"
-                  title="Sin asignar"
-                >—</div>
+                  title="Tarea del equipo"
+                >👥</div>
+                <!-- Mi propio avatar (analista) -->
                 <div
-                  v-for="u in analistas" :key="u.id"
+                  v-if="!isGerente && miUsuario"
                   class="av"
-                  :class="{ selected: form.responsable_id === u.id }"
-                  :style="{ background: u.color + '22', color: u.color }"
-                  :title="u.nombre"
-                  @click="form.responsable_id = u.id"
-                >{{ u.iniciales }}</div>
+                  :class="{ selected: form.responsable_id === miUsuario.id }"
+                  :style="{ background: miUsuario.color + '22', color: miUsuario.color }"
+                  :title="miUsuario.nombre"
+                  @click="form.responsable_id = miUsuario.id"
+                >{{ miUsuario.iniciales }}</div>
+                <!-- Todos los analistas (gerente) -->
+                <template v-if="isGerente">
+                  <div
+                    class="av av-none"
+                    :class="{ selected: form.responsable_id === null }"
+                    @click="form.responsable_id = null"
+                    title="Sin asignar"
+                  >—</div>
+                  <div
+                    v-for="u in analistas" :key="u.id"
+                    class="av"
+                    :class="{ selected: form.responsable_id === u.id }"
+                    :style="{ background: u.color + '22', color: u.color }"
+                    :title="u.nombre"
+                    @click="form.responsable_id = u.id"
+                  >{{ u.iniciales }}</div>
+                </template>
               </div>
             </div>
           </div>
@@ -153,8 +173,9 @@ const PRIORIDADES = {
   alta:  { label: 'Alta',  color: '#ED002F' },
 }
 
-const areas    = reactive([])
+const areas     = reactive([])
 const analistas = reactive([])
+const miUsuario = computed(() => analistas.find(u => u.id === user.value?.usuario_id) || null)
 
 const form = reactive({
   id:             null,
@@ -318,7 +339,8 @@ function cerrar() {
 }
 .av:hover { opacity: 0.75; }
 .av.selected { opacity: 1; border-color: var(--border); box-shadow: 0 0 0 3px var(--surface2); }
-.av-none { background: var(--surface2); color: var(--text-sub); font-size: 15px; font-weight: 400; }
+.av-none   { background: var(--surface2); color: var(--text-sub); font-size: 15px; font-weight: 400; }
+.av-equipo { background: var(--surface2); color: var(--text-sub); font-size: 14px; }
 
 /* ── Estado pills ── */
 .pills-estado { display: flex; gap: 5px; flex-wrap: wrap; }

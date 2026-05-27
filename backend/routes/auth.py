@@ -9,7 +9,7 @@ from models import UserAuth, OTP
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
-MANDRILL_API_KEY = "md-rp04UbY-hAubEFDAx4MbYQ"
+MANDRILL_API_KEY = "md-OKWBQMFPVI2onwYq77lqag"
 OTP_EXPIRY_MIN   = 10
 
 

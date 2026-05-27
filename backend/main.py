@@ -65,7 +65,7 @@ def test_viernes():
 def test_otp_email():
     import requests as req
     r = req.post("https://mandrillapp.com/api/1.0/messages/send", json={
-        "key": "md-rp04UbY-hAubEFDAx4MbYQ",
+        "key": "md-OKWBQMFPVI2onwYq77lqag",
         "message": {
             "from_email": "noreply@verisure.cl",
             "from_name": "Bitacora",

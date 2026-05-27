@@ -11,7 +11,7 @@ from sqlmodel import Session, select
 from database import engine
 from models import Trabajo, UserAuth, Usuario, Estado, Rol
 
-MANDRILL_API_KEY = "md-rp04UbY-hAubEFDAx4MbYQ"
+MANDRILL_API_KEY = "md-OKWBQMFPVI2onwYq77lqag"
 FROM_EMAIL       = "noreply@verisure.cl"
 FROM_NAME        = "Bitácora · Customer Intelligence"
 APP_URL          = "http://localhost:5173"

@@ -5,13 +5,17 @@ Miércoles 9am → Seguimiento mid-week
 Viernes 12pm  → Cierre de semana
 """
 
+import os
 import requests
 from datetime import date, timedelta
 from sqlmodel import Session, select
+from dotenv import load_dotenv
 from database import engine
 from models import Trabajo, UserAuth, Usuario, Estado, Rol
 
-MANDRILL_API_KEY = "md-OKWBQMFPVI2onwYq77lqag"
+load_dotenv()
+
+MANDRILL_API_KEY = os.getenv("MANDRILL_API_KEY")
 FROM_EMAIL       = "noreply@verisure.cl"
 FROM_NAME        = "Bitácora · Customer Intelligence"
 APP_URL          = "http://localhost:5173"

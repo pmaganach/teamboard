@@ -1,3 +1,5 @@
+import os
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -6,6 +8,8 @@ from database import create_db
 from seed import seed
 from routes import trabajos, usuarios, areas, auth
 from reminders import job_lunes, job_miercoles, job_viernes
+
+load_dotenv()
 
 app = FastAPI(title="TeamBoard API", version="1.0.0")
 
@@ -65,7 +69,7 @@ def test_viernes():
 def test_otp_email():
     import requests as req
     r = req.post("https://mandrillapp.com/api/1.0/messages/send", json={
-        "key": "md-OKWBQMFPVI2onwYq77lqag",
+        "key": os.getenv("MANDRILL_API_KEY"),
         "message": {
             "from_email": "noreply@verisure.cl",
             "from_name": "Bitacora",

@@ -77,7 +77,7 @@ const props = defineProps({
 defineEmits(['editar'])
 
 const ESTADOS = {
-  por_comenzar: { label: 'Por comenzar', color: '#636466' },
+  por_comenzar: { label: 'Por comenzar', color: '#a78bfa' },
   en_gestion:   { label: 'En gestión',   color: '#3b82f6' },
   en_revision:  { label: 'En revisión',  color: '#f59e0b' },
   pendiente:    { label: 'Pendiente',    color: '#f97316' },
@@ -168,8 +168,8 @@ td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
   text-transform: capitalize;
 }
 .prio-badge.alta  { background: #ED002F18; color: #ED002F; }
-.prio-badge.media { background: #f59e0b18; color: #f59e0b; }
-.prio-badge.baja  { background: #63646618; color: #636466; }
+.prio-badge.media { background: #eab30818; color: #eab308; }
+.prio-badge.baja  { background: #38bdf818; color: #38bdf8; }
 
 .estado-badge {
   font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 5px;

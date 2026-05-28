@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Mockup colores — Por comenzar</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #1C1C1C; font-family: 'Segoe UI', sans-serif; padding: 32px; color: #e8e8e8; }
+  h1 { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: #636466; margin-bottom: 24px; }
+  .opciones { display: flex; gap: 16px; flex-wrap: wrap; }
+  .opcion { background: #252525; border: 1px solid #333; border-radius: 14px; padding: 20px 24px; width: 220px; }
+  .opcion-titulo { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #636466; margin-bottom: 14px; }
+  .kpi-row { display: flex; align-items: center; gap: 9px; margin-bottom: 8px; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .kpi-label { font-size: 11px; color: #8A8C8E; width: 80px; flex-shrink: 0; }
+  .bar-wrap { flex: 1; }
+  .bar { height: 4px; background: #333; border-radius: 2px; }
+  .fill { height: 100%; border-radius: 2px; }
+  .kpi-num { font-size: 12px; font-weight: 800; width: 16px; text-align: right; }
+  .pills { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 14px; padding-top: 14px; border-top: 1px solid #333; }
+  .pill { padding: 5px 11px; border-radius: 20px; font-size: 11px; font-weight: 600; border: 1px solid; }
+  .chip-wrap { margin-top: 14px; padding-top: 14px; border-top: 1px solid #333; }
+  .chip { display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; }
+  .chip-dot { width: 6px; height: 6px; border-radius: 50%; }
+  .actual { border-color: #ED002F44 !important; }
+  .actual .opcion-titulo::after { content: ' ← actual'; color: #ED002F; }
+</style>
+</head>
+<body>
+
+<h1>Opciones de color — "Por comenzar"</h1>
+
+<div class="opciones">
+
+  <!-- ACTUAL -->
+  <div class="opcion actual">
+    <div class="opcion-titulo">Gris #636466</div>
+    <div class="kpi-row"><div class="dot" style="background:#636466"></div><span class="kpi-label">Por comenzar</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:40%;background:#636466"></div></div></div><span class="kpi-num" style="color:#636466">4</span></div>
+    <div class="kpi-row"><div class="dot" style="background:#3b82f6"></div><span class="kpi-label">En gestión</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:30%;background:#3b82f6"></div></div></div><span class="kpi-num" style="color:#3b82f6">3</span></div>
+    <div class="kpi-row"><div class="dot" style="background:#10b981"></div><span class="kpi-label">Completado</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:20%;background:#10b981"></div></div></div><span class="kpi-num" style="color:#10b981">2</span></div>
+    <div class="pills"><div class="pill" style="background:#63646618;color:#636466;border-color:#63646660">Por comenzar</div></div>
+    <div class="chip-wrap"><div class="chip" style="background:#63646618;color:#636466"><div class="chip-dot" style="background:#636466"></div>Dashboard</div></div>
+  </div>
+
+  <!-- VIOLETA -->
+  <div class="opcion">
+    <div class="opcion-titulo">Violeta #a78bfa</div>
+    <div class="kpi-row"><div class="dot" style="background:#a78bfa"></div><span class="kpi-label">Por comenzar</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:40%;background:#a78bfa"></div></div></div><span class="kpi-num" style="color:#a78bfa">4</span></div>
+    <div class="kpi-row"><div class="dot" style="background:#3b82f6"></div><span class="kpi-label">En gestión</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:30%;background:#3b82f6"></div></div></div><span class="kpi-num" style="color:#3b82f6">3</span></div>
+    <div class="kpi-row"><div class="dot" style="background:#10b981"></div><span class="kpi-label">Completado</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:20%;background:#10b981"></div></div></div><span class="kpi-num" style="color:#10b981">2</span></div>
+    <div class="pills"><div class="pill" style="background:#a78bfa18;color:#a78bfa;border-color:#a78bfa60">Por comenzar</div></div>
+    <div class="chip-wrap"><div class="chip" style="background:#a78bfa18;color:#a78bfa"><div class="chip-dot" style="background:#a78bfa"></div>Dashboard</div></div>
+  </div>
+
+  <!-- SLATE -->
+  <div class="opcion">
+    <div class="opcion-titulo">Slate #94a3b8</div>
+    <div class="kpi-row"><div class="dot" style="background:#94a3b8"></div><span class="kpi-label">Por comenzar</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:40%;background:#94a3b8"></div></div></div><span class="kpi-num" style="color:#94a3b8">4</span></div>
+    <div class="kpi-row"><div class="dot" style="background:#3b82f6"></div><span class="kpi-label">En gestión</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:30%;background:#3b82f6"></div></div></div><span class="kpi-num" style="color:#3b82f6">3</span></div>
+    <div class="kpi-row"><div class="dot" style="background:#10b981"></div><span class="kpi-label">Completado</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:20%;background:#10b981"></div></div></div><span class="kpi-num" style="color:#10b981">2</span></div>
+    <div class="pills"><div class="pill" style="background:#94a3b818;color:#94a3b8;border-color:#94a3b860">Por comenzar</div></div>
+    <div class="chip-wrap"><div class="chip" style="background:#94a3b818;color:#94a3b8"><div class="chip-dot" style="background:#94a3b8"></div>Dashboard</div></div>
+  </div>
+
+  <!-- CYAN -->
+  <div class="opcion">
+    <div class="opcion-titulo">Cyan #22d3ee</div>
+    <div class="kpi-row"><div class="dot" style="background:#22d3ee"></div><span class="kpi-label">Por comenzar</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:40%;background:#22d3ee"></div></div></div><span class="kpi-num" style="color:#22d3ee">4</span></div>
+    <div class="kpi-row"><div class="dot" style="background:#3b82f6"></div><span class="kpi-label">En gestión</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:30%;background:#3b82f6"></div></div></div><span class="kpi-num" style="color:#3b82f6">3</span></div>
+    <div class="kpi-row"><div class="dot" style="background:#10b981"></div><span class="kpi-label">Completado</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:20%;background:#10b981"></div></div></div><span class="kpi-num" style="color:#10b981">2</span></div>
+    <div class="pills"><div class="pill" style="background:#22d3ee18;color:#22d3ee;border-color:#22d3ee60">Por comenzar</div></div>
+    <div class="chip-wrap"><div class="chip" style="background:#22d3ee18;color:#22d3ee"><div class="chip-dot" style="background:#22d3ee"></div>Dashboard</div></div>
+  </div>
+
+  <!-- ÍNDIGO -->
+  <div class="opcion">
+    <div class="opcion-titulo">Índigo #6366f1</div>
+    <div class="kpi-row"><div class="dot" style="background:#6366f1"></div><span class="kpi-label">Por comenzar</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:40%;background:#6366f1"></div></div></div><span class="kpi-num" style="color:#6366f1">4</span></div>
+    <div class="kpi-row"><div class="dot" style="background:#3b82f6"></div><span class="kpi-label">En gestión</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:30%;background:#3b82f6"></div></div></div><span class="kpi-num" style="color:#3b82f6">3</span></div>
+    <div class="kpi-row"><div class="dot" style="background:#10b981"></div><span class="kpi-label">Completado</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:20%;background:#10b981"></div></div></div><span class="kpi-num" style="color:#10b981">2</span></div>
+    <div class="pills"><div class="pill" style="background:#6366f118;color:#6366f1;border-color:#6366f160">Por comenzar</div></div>
+    <div class="chip-wrap"><div class="chip" style="background:#6366f118;color:#6366f1"><div class="chip-dot" style="background:#6366f1"></div>Dashboard</div></div>
+  </div>
+
+  <!-- SKY -->
+  <div class="opcion">
+    <div class="opcion-titulo">Sky #38bdf8</div>
+    <div class="kpi-row"><div class="dot" style="background:#38bdf8"></div><span class="kpi-label">Por comenzar</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:40%;background:#38bdf8"></div></div></div><span class="kpi-num" style="color:#38bdf8">4</span></div>
+    <div class="kpi-row"><div class="dot" style="background:#3b82f6"></div><span class="kpi-label">En gestión</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:30%;background:#3b82f6"></div></div></div><span class="kpi-num" style="color:#3b82f6">3</span></div>
+    <div class="kpi-row"><div class="dot" style="background:#10b981"></div><span class="kpi-label">Completado</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:20%;background:#10b981"></div></div></div><span class="kpi-num" style="color:#10b981">2</span></div>
+    <div class="pills"><div class="pill" style="background:#38bdf818;color:#38bdf8;border-color:#38bdf860">Por comenzar</div></div>
+    <div class="chip-wrap"><div class="chip" style="background:#38bdf818;color:#38bdf8"><div class="chip-dot" style="background:#38bdf8"></div>Dashboard</div></div>
+  </div>
+
+  <!-- TEAL -->
+  <div class="opcion">
+    <div class="opcion-titulo">Teal #2dd4bf</div>
+    <div class="kpi-row"><div class="dot" style="background:#2dd4bf"></div><span class="kpi-label">Por comenzar</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:40%;background:#2dd4bf"></div></div></div><span class="kpi-num" style="color:#2dd4bf">4</span></div>
+    <div class="kpi-row"><div class="dot" style="background:#3b82f6"></div><span class="kpi-label">En gestión</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:30%;background:#3b82f6"></div></div></div><span class="kpi-num" style="color:#3b82f6">3</span></div>
+    <div class="kpi-row"><div class="dot" style="background:#10b981"></div><span class="kpi-label">Completado</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:20%;background:#10b981"></div></div></div><span class="kpi-num" style="color:#10b981">2</span></div>
+    <div class="pills"><div class="pill" style="background:#2dd4bf18;color:#2dd4bf;border-color:#2dd4bf60">Por comenzar</div></div>
+    <div class="chip-wrap"><div class="chip" style="background:#2dd4bf18;color:#2dd4bf"><div class="chip-dot" style="background:#2dd4bf"></div>Dashboard</div></div>
+  </div>
+
+  <!-- PINK -->
+  <div class="opcion">
+    <div class="opcion-titulo">Pink #f472b6</div>
+    <div class="kpi-row"><div class="dot" style="background:#f472b6"></div><span class="kpi-label">Por comenzar</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:40%;background:#f472b6"></div></div></div><span class="kpi-num" style="color:#f472b6">4</span></div>
+    <div class="kpi-row"><div class="dot" style="background:#3b82f6"></div><span class="kpi-label">En gestión</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:30%;background:#3b82f6"></div></div></div><span class="kpi-num" style="color:#3b82f6">3</span></div>
+    <div class="kpi-row"><div class="dot" style="background:#10b981"></div><span class="kpi-label">Completado</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:20%;background:#10b981"></div></div></div><span class="kpi-num" style="color:#10b981">2</span></div>
+    <div class="pills"><div class="pill" style="background:#f472b618;color:#f472b6;border-color:#f472b660">Por comenzar</div></div>
+    <div class="chip-wrap"><div class="chip" style="background:#f472b618;color:#f472b6"><div class="chip-dot" style="background:#f472b6"></div>Dashboard</div></div>
+  </div>
+
+  <!-- LIMA -->
+  <div class="opcion">
+    <div class="opcion-titulo">Lima #a3e635</div>
+    <div class="kpi-row"><div class="dot" style="background:#a3e635"></div><span class="kpi-label">Por comenzar</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:40%;background:#a3e635"></div></div></div><span class="kpi-num" style="color:#a3e635">4</span></div>
+    <div class="kpi-row"><div class="dot" style="background:#3b82f6"></div><span class="kpi-label">En gestión</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:30%;background:#3b82f6"></div></div></div><span class="kpi-num" style="color:#3b82f6">3</span></div>
+    <div class="kpi-row"><div class="dot" style="background:#10b981"></div><span class="kpi-label">Completado</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:20%;background:#10b981"></div></div></div><span class="kpi-num" style="color:#10b981">2</span></div>
+    <div class="pills"><div class="pill" style="background:#a3e63518;color:#a3e635;border-color:#a3e63560">Por comenzar</div></div>
+    <div class="chip-wrap"><div class="chip" style="background:#a3e63518;color:#a3e635"><div class="chip-dot" style="background:#a3e635"></div>Dashboard</div></div>
+  </div>
+
+  <!-- YELLOW -->
+  <div class="opcion">
+    <div class="opcion-titulo">Yellow #facc15</div>
+    <div class="kpi-row"><div class="dot" style="background:#facc15"></div><span class="kpi-label">Por comenzar</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:40%;background:#facc15"></div></div></div><span class="kpi-num" style="color:#facc15">4</span></div>
+    <div class="kpi-row"><div class="dot" style="background:#3b82f6"></div><span class="kpi-label">En gestión</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:30%;background:#3b82f6"></div></div></div><span class="kpi-num" style="color:#3b82f6">3</span></div>
+    <div class="kpi-row"><div class="dot" style="background:#10b981"></div><span class="kpi-label">Completado</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:20%;background:#10b981"></div></div></div><span class="kpi-num" style="color:#10b981">2</span></div>
+    <div class="pills"><div class="pill" style="background:#facc1518;color:#facc15;border-color:#facc1560">Por comenzar</div></div>
+    <div class="chip-wrap"><div class="chip" style="background:#facc1518;color:#facc15"><div class="chip-dot" style="background:#facc15"></div>Dashboard</div></div>
+  </div>
+
+  <!-- CORAL -->
+  <div class="opcion">
+    <div class="opcion-titulo">Coral #ff6b6b</div>
+    <div class="kpi-row"><div class="dot" style="background:#ff6b6b"></div><span class="kpi-label">Por comenzar</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:40%;background:#ff6b6b"></div></div></div><span class="kpi-num" style="color:#ff6b6b">4</span></div>
+    <div class="kpi-row"><div class="dot" style="background:#3b82f6"></div><span class="kpi-label">En gestión</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:30%;background:#3b82f6"></div></div></div><span class="kpi-num" style="color:#3b82f6">3</span></div>
+    <div class="kpi-row"><div class="dot" style="background:#10b981"></div><span class="kpi-label">Completado</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:20%;background:#10b981"></div></div></div><span class="kpi-num" style="color:#10b981">2</span></div>
+    <div class="pills"><div class="pill" style="background:#ff6b6b18;color:#ff6b6b;border-color:#ff6b6b60">Por comenzar</div></div>
+    <div class="chip-wrap"><div class="chip" style="background:#ff6b6b18;color:#ff6b6b"><div class="chip-dot" style="background:#ff6b6b"></div>Dashboard</div></div>
+  </div>
+
+  <!-- FUCHSIA -->
+  <div class="opcion">
+    <div class="opcion-titulo">Fuchsia #e879f9</div>
+    <div class="kpi-row"><div class="dot" style="background:#e879f9"></div><span class="kpi-label">Por comenzar</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:40%;background:#e879f9"></div></div></div><span class="kpi-num" style="color:#e879f9">4</span></div>
+    <div class="kpi-row"><div class="dot" style="background:#3b82f6"></div><span class="kpi-label">En gestión</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:30%;background:#3b82f6"></div></div></div><span class="kpi-num" style="color:#3b82f6">3</span></div>
+    <div class="kpi-row"><div class="dot" style="background:#10b981"></div><span class="kpi-label">Completado</span><div class="bar-wrap"><div class="bar"><div class="fill" style="width:20%;background:#10b981"></div></div></div><span class="kpi-num" style="color:#10b981">2</span></div>
+    <div class="pills"><div class="pill" style="background:#e879f918;color:#e879f9;border-color:#e879f960">Por comenzar</div></div>
+    <div class="chip-wrap"><div class="chip" style="background:#e879f918;color:#e879f9"><div class="chip-dot" style="background:#e879f9"></div>Dashboard</div></div>
+  </div>
+
+</div>
+</body>
+</html>

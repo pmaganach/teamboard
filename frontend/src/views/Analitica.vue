@@ -125,14 +125,14 @@
               <div class="prio-name">{{ primerNombre(d.usuario.nombre) }}</div>
               <div class="prio-track">
                 <div v-if="d.baja"  class="prio-seg" style="background:#10b981" :style="{ width: pct(d.baja,  maxPrio) + '%' }" :title="`Baja: ${d.baja}`">{{ d.baja > 1 ? 'B'+d.baja : '' }}</div>
-                <div v-if="d.media" class="prio-seg" style="background:#f59e0b" :style="{ width: pct(d.media, maxPrio) + '%' }" :title="`Media: ${d.media}`">{{ d.media > 1 ? 'M'+d.media : '' }}</div>
+                <div v-if="d.media" class="prio-seg" style="background:#eab308" :style="{ width: pct(d.media, maxPrio) + '%' }" :title="`Media: ${d.media}`">{{ d.media > 1 ? 'M'+d.media : '' }}</div>
                 <div v-if="d.alta"  class="prio-seg" style="background:#ED002F" :style="{ width: pct(d.alta,  maxPrio) + '%' }" :title="`Alta: ${d.alta}`">{{ d.alta > 1 ? 'A'+d.alta : '' }}</div>
               </div>
               <div class="prio-total">{{ d.total }}</div>
             </div>
             <div class="prio-legend">
               <span class="leg-item"><span class="ld" style="background:#10b981"></span>Baja</span>
-              <span class="leg-item"><span class="ld" style="background:#f59e0b"></span>Media</span>
+              <span class="leg-item"><span class="ld" style="background:#eab308"></span>Media</span>
               <span class="leg-item"><span class="ld" style="background:#ED002F"></span>Alta</span>
             </div>
           </div>

@@ -60,7 +60,7 @@ function count(estado) {
 }
 
 const estados = computed(() => [
-  { label: 'Por comenzar', valor: count('por_comenzar'), color: '#636466' },
+  { label: 'Por comenzar', valor: count('por_comenzar'), color: '#a78bfa' },
   { label: 'En gestión',   valor: count('en_gestion'),   color: '#3b82f6' },
   { label: 'En revisión',  valor: count('en_revision'),  color: '#f59e0b' },
   { label: 'Pendiente',    valor: count('pendiente'),    color: '#f97316' },

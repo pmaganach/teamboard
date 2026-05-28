@@ -30,9 +30,17 @@ const trabajoSeleccionado = ref(null)
 const { filtros }         = useFiltros()
 const { user, isGerente } = useAuth()
 
+function esResponsable(t, uid) {
+  if (t.responsable_id === uid) return true
+  if (t.responsables_ids) {
+    try { return JSON.parse(t.responsables_ids).includes(uid) } catch { /* ignore */ }
+  }
+  return false
+}
+
 const trabajosFiltrados = computed(() => {
   if (isGerente.value) return trabajos.value
-  return trabajos.value.filter(t => t.responsable_id === user.value?.usuario_id)
+  return trabajos.value.filter(t => esResponsable(t, user.value?.usuario_id))
 })
 
 async function cargarDatos() {

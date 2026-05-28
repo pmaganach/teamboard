@@ -1,3 +1,4 @@
+import json
 from typing import Optional
 from datetime import date
 from fastapi import APIRouter, Depends, HTTPException
@@ -28,8 +29,12 @@ def listar_trabajos(
 
 @router.post("/", status_code=201)
 def crear_trabajo(trabajo: TrabajoCreate, session: Session = Depends(get_session)):
-    db_trabajo = Trabajo.model_validate(trabajo)
+    data = trabajo.model_dump(exclude={'responsables_ids'})
+    db_trabajo = Trabajo(**data)
     db_trabajo.area_equipo = "Customer Intelligence"
+    if trabajo.responsables_ids:
+        db_trabajo.responsables_ids = json.dumps(trabajo.responsables_ids)
+        db_trabajo.responsable_id = trabajo.responsables_ids[0]
     session.add(db_trabajo)
     session.commit()
     session.refresh(db_trabajo)
@@ -41,8 +46,12 @@ def editar_trabajo(id: int, datos: TrabajoUpdate, session: Session = Depends(get
     trabajo = session.get(Trabajo, id)
     if not trabajo:
         raise HTTPException(status_code=404, detail="Trabajo no encontrado")
-    for campo, valor in datos.model_dump(exclude_unset=True).items():
+    update_data = datos.model_dump(exclude_unset=True, exclude={'responsables_ids'})
+    for campo, valor in update_data.items():
         setattr(trabajo, campo, valor)
+    if datos.responsables_ids is not None:
+        trabajo.responsables_ids = json.dumps(datos.responsables_ids)
+        trabajo.responsable_id = datos.responsables_ids[0] if datos.responsables_ids else None
     session.commit()
     session.refresh(trabajo)
     return trabajo

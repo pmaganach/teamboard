@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 from datetime import date, datetime
 from sqlmodel import SQLModel, Field
 from enum import Enum
@@ -70,36 +70,39 @@ class Trabajo(SQLModel, table=True):
     fecha_inicio   : date                = Field(default_factory=date.today)
     fecha_sla      : Optional[date]      = None
     comentarios    : Optional[str]       = None
+    responsables_ids: Optional[str]     = None   # JSON list of usuario IDs, e.g. "[1,3,5]"
     creado_en      : datetime            = Field(default_factory=datetime.now)
 
 
 # Esquemas para crear/editar (sin id ni fechas automáticas)
 class TrabajoCreate(SQLModel):
-    nombre         : str
-    area_cliente   : str
-    responsable_id : Optional[int]  = None
-    area_equipo    : Optional[str]  = None
-    estado         : Estado         = Estado.por_comenzar
-    progreso       : int            = 0
-    prioridad      : Prioridad              = Prioridad.media
-    magnitud       : Optional[Magnitud]    = None
-    tipo           : Optional[TipoTrabajo] = None
-    fecha_sla      : Optional[date]        = None
-    comentarios    : Optional[str]         = None
+    nombre           : str
+    area_cliente     : str
+    responsable_id   : Optional[int]        = None
+    responsables_ids : Optional[List[int]]  = None
+    area_equipo      : Optional[str]        = None
+    estado           : Estado               = Estado.por_comenzar
+    progreso         : int                  = 0
+    prioridad        : Prioridad            = Prioridad.media
+    magnitud         : Optional[Magnitud]   = None
+    tipo             : Optional[TipoTrabajo] = None
+    fecha_sla        : Optional[date]       = None
+    comentarios      : Optional[str]        = None
 
 
 class TrabajoUpdate(SQLModel):
-    nombre         : Optional[str]          = None
-    area_cliente   : Optional[str]          = None
-    responsable_id : Optional[int]          = None
-    area_equipo    : Optional[str]          = None
-    estado         : Optional[Estado]       = None
-    progreso       : Optional[int]          = None
-    prioridad      : Optional[Prioridad]    = None
-    magnitud       : Optional[Magnitud]     = None
-    tipo           : Optional[TipoTrabajo]  = None
-    fecha_sla      : Optional[date]         = None
-    comentarios    : Optional[str]          = None
+    nombre           : Optional[str]          = None
+    area_cliente     : Optional[str]          = None
+    responsable_id   : Optional[int]          = None
+    responsables_ids : Optional[List[int]]    = None
+    area_equipo      : Optional[str]          = None
+    estado           : Optional[Estado]       = None
+    progreso         : Optional[int]          = None
+    prioridad        : Optional[Prioridad]    = None
+    magnitud         : Optional[Magnitud]     = None
+    tipo             : Optional[TipoTrabajo]  = None
+    fecha_sla        : Optional[date]         = None
+    comentarios      : Optional[str]          = None
 
 
 class EstadoUpdate(SQLModel):

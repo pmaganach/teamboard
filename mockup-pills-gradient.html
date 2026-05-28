@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Mockup Pills — Gradientes</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #1C1C1C; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; color: #e8e8e8; }
+:root { --surface: #252525; --surface2: #2e2e2e; --border: #333; --text: #e8e8e8; --text-sub: #636466; }
+
+h3 { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #636466; margin-bottom: 14px; text-align: center; }
+.grid { display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start; }
+
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; width: 290px; }
+
+.sep-label {
+  display: flex; align-items: center; gap: 8px;
+  color: #636466; font-size: 9px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px;
+}
+.sep-label::before, .sep-label::after { content: ''; flex: 1; height: 1px; background: #333; }
+.lbl-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+.campo { margin-bottom: 14px; }
+.campo label { font-size: 10px; font-weight: 700; color: #636466; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; margin-bottom: 6px; }
+.pills-row { display: flex; gap: 5px; flex-wrap: wrap; }
+.pills-block { display: flex; gap: 5px; }
+
+/* Progreso igual en todos */
+.prog-segs { display: flex; gap: 5px; }
+.prog-seg { flex: 1; padding: 7px 4px; border-radius: 8px; font-size: 11px; font-weight: 700; text-align: center; border: 1px solid #333; background: transparent; color: #636466; cursor: pointer; position: relative; overflow: hidden; }
+.prog-seg::after { content: ''; position: absolute; bottom: 0; left: 0; height: 3px; border-radius: 0 0 8px 8px; }
+.ps-0::after   { width: 0%;   background: #636466; }
+.ps-25::after  { width: 25%;  background: #eab308; }
+.ps-50::after  { width: 50%;  background: #eab308; }
+.ps-75::after  { width: 75%;  background: #10b981; }
+.ps-100::after { width: 100%; background: #10b981; }
+
+/* ── E: Borde gradiente por pill ── */
+.pill-e {
+  padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 600;
+  display: inline-block; margin: 2px; cursor: pointer;
+  border: 1.5px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+}
+/* Truco: borde gradiente con pseudo-elemento */
+.pill-e::before {
+  content: ''; position: absolute; inset: -1.5px;
+  border-radius: 20px; z-index: -1;
+}
+.pe-violet::before  { background: linear-gradient(135deg, #a78bfa, #818cf8); }
+.pe-blue::before    { background: linear-gradient(135deg, #3b82f6, #06b6d4); }
+.pe-amber::before   { background: linear-gradient(135deg, #f59e0b, #eab308); }
+.pe-orange::before  { background: linear-gradient(135deg, #f97316, #f59e0b); }
+.pe-green::before   { background: linear-gradient(135deg, #10b981, #34d399); }
+.pe-sky::before     { background: linear-gradient(135deg, #38bdf8, #06b6d4); }
+.pe-yellow::before  { background: linear-gradient(135deg, #eab308, #f59e0b); }
+.pe-red::before     { background: linear-gradient(135deg, #ED002F, #f97316); }
+
+.pill-e-bg { background: var(--surface2); color: var(--text-sub); }
+
+.pill-e-block {
+  flex: 1; padding: 7px; border-radius: 8px; font-size: 11px; font-weight: 600;
+  text-align: center; cursor: pointer; border: 1.5px solid transparent;
+  background: var(--surface2); color: var(--text-sub);
+  position: relative;
+}
+.pill-e-block::before {
+  content: ''; position: absolute; inset: -1.5px;
+  border-radius: 8px; z-index: -1;
+}
+
+
+/* ── F: Fondo gradiente suave en todo el grupo ── */
+.pills-estado-f {
+  display: flex; gap: 5px; flex-wrap: wrap;
+  background: linear-gradient(135deg, #a78bfa0a, #3b82f60a, #f59e0b0a, #f973160a, #10b9810a);
+  border: 1px solid #ffffff0a; border-radius: 12px; padding: 8px;
+}
+.pills-prio-f {
+  display: flex; gap: 5px;
+  background: linear-gradient(90deg, #38bdf80a, #eab3080a, #ED002F0a);
+  border: 1px solid #ffffff0a; border-radius: 10px; padding: 8px;
+}
+.pills-generic-f {
+  display: flex; gap: 5px;
+  background: linear-gradient(90deg, #10b9810a, #3b82f60a, #eab3080a, #ED002F0a);
+  border: 1px solid #ffffff0a; border-radius: 10px; padding: 8px;
+}
+.pill-f {
+  padding: 5px 11px; border-radius: 16px; font-size: 11px; font-weight: 600;
+  border: 1px solid; cursor: pointer; display: inline-block;
+}
+.pill-f-block {
+  flex: 1; padding: 7px; border-radius: 7px; font-size: 11px; font-weight: 600;
+  text-align: center; border: 1px solid; cursor: pointer;
+}
+
+
+/* ── G: Pills con gradiente interno ── */
+.pill-g {
+  padding: 6px 13px; border-radius: 20px; font-size: 11px; font-weight: 600;
+  display: inline-block; margin: 2px; cursor: pointer; border: none; color: #fff;
+  opacity: 0.45;
+}
+.pill-g-block {
+  flex: 1; padding: 8px; border-radius: 8px; font-size: 11px; font-weight: 600;
+  text-align: center; cursor: pointer; border: none; color: #fff; opacity: 0.45;
+}
+.gg-violet  { background: linear-gradient(135deg, #a78bfa, #818cf8); }
+.gg-blue    { background: linear-gradient(135deg, #3b82f6, #06b6d4); }
+.gg-amber   { background: linear-gradient(135deg, #f59e0b, #eab308); }
+.gg-orange  { background: linear-gradient(135deg, #f97316, #f59e0b); }
+.gg-green   { background: linear-gradient(135deg, #10b981, #34d399); }
+.gg-sky     { background: linear-gradient(135deg, #38bdf8, #06b6d4); }
+.gg-yellow  { background: linear-gradient(135deg, #eab308, #fbbf24); }
+.gg-red     { background: linear-gradient(135deg, #ED002F, #f97316); }
+.gg-ind     { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+.gg-orange2 { background: linear-gradient(135deg, #f97316, #fb923c); }
+.gg-sky2    { background: linear-gradient(135deg, #0ea5e9, #38bdf8); }
+</style>
+</head>
+<body>
+
+<div class="grid">
+
+  <!-- OPCIÓN E: Borde gradiente -->
+  <div>
+    <h3>E — Borde gradiente por pill</h3>
+    <div class="card">
+      <div class="sep-label">Estado</div>
+      <div class="campo">
+        <div class="pills-row">
+          <span class="pill-e pill-e-bg pe-violet">Por comenzar</span>
+          <span class="pill-e pill-e-bg pe-blue">En gestión</span>
+          <span class="pill-e pill-e-bg pe-amber">En revisión</span>
+          <span class="pill-e pill-e-bg pe-orange">Pendiente</span>
+          <span class="pill-e pill-e-bg pe-green">Completado</span>
+        </div>
+      </div>
+      <div class="sep-label">Prioridad</div>
+      <div class="campo">
+        <div class="pills-block">
+          <span class="pill-e-block pe-sky">Baja</span>
+          <span class="pill-e-block pe-yellow">Media</span>
+          <span class="pill-e-block pe-red">Alta</span>
+        </div>
+      </div>
+      <div class="sep-label">Detalles</div>
+      <div class="campo">
+        <label><span class="lbl-dot" style="background:#10b981"></span>Magnitud</label>
+        <div class="pills-block">
+          <span class="pill-e-block pe-green">Rápido</span>
+          <span class="pill-e-block pe-blue">Moderado</span>
+          <span class="pill-e-block pe-amber">Extenso</span>
+          <span class="pill-e-block pe-red">Complejo</span>
+        </div>
+      </div>
+      <div class="campo">
+        <label><span class="lbl-dot" style="background:#6366f1"></span>Tipo</label>
+        <div class="pills-block">
+          <span class="pill-e-block pe-violet">Puntual</span>
+          <span class="pill-e-block pe-orange">Recurrente</span>
+          <span class="pill-e-block pe-sky">Iniciativa</span>
+        </div>
+      </div>
+      <div class="campo">
+        <label><span class="lbl-dot" style="background:#ED002F"></span>Progreso *</label>
+        <div class="prog-segs">
+          <button class="prog-seg ps-0">0%</button><button class="prog-seg ps-25">25%</button><button class="prog-seg ps-50">50%</button><button class="prog-seg ps-75">75%</button><button class="prog-seg ps-100">100%</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPCIÓN F: Fondo del grupo en gradiente -->
+  <div>
+    <h3>F — Contenedor con gradiente suave</h3>
+    <div class="card">
+      <div class="sep-label">Estado</div>
+      <div class="campo">
+        <div class="pills-estado-f">
+          <span class="pill-f" style="background:#a78bfa08;color:#a78bfa90;border-color:#a78bfa30">Por comenzar</span>
+          <span class="pill-f" style="background:#3b82f608;color:#3b82f690;border-color:#3b82f630">En gestión</span>
+          <span class="pill-f" style="background:#f59e0b08;color:#f59e0b90;border-color:#f59e0b30">En revisión</span>
+          <span class="pill-f" style="background:#f9731608;color:#f9731690;border-color:#f9731630">Pendiente</span>
+          <span class="pill-f" style="background:#10b98108;color:#10b98190;border-color:#10b98130">Completado</span>
+        </div>
+      </div>
+      <div class="sep-label">Prioridad</div>
+      <div class="campo">
+        <div class="pills-prio-f">
+          <span class="pill-f-block" style="background:#38bdf808;color:#38bdf890;border-color:#38bdf830">Baja</span>
+          <span class="pill-f-block" style="background:#eab30808;color:#eab30890;border-color:#eab30830">Media</span>
+          <span class="pill-f-block" style="background:#ED002F08;color:#ED002F90;border-color:#ED002F30">Alta</span>
+        </div>
+      </div>
+      <div class="sep-label">Detalles</div>
+      <div class="campo">
+        <label><span class="lbl-dot" style="background:#10b981"></span>Magnitud</label>
+        <div class="pills-generic-f">
+          <span class="pill-f-block" style="background:#10b98108;color:#10b98190;border-color:#10b98130">Rápido</span>
+          <span class="pill-f-block" style="background:#3b82f608;color:#3b82f690;border-color:#3b82f630">Moderado</span>
+          <span class="pill-f-block" style="background:#eab30808;color:#eab30890;border-color:#eab30830">Extenso</span>
+          <span class="pill-f-block" style="background:#ED002F08;color:#ED002F90;border-color:#ED002F30">Complejo</span>
+        </div>
+      </div>
+      <div class="campo">
+        <label><span class="lbl-dot" style="background:#6366f1"></span>Tipo</label>
+        <div style="display:flex;gap:5px;background:linear-gradient(90deg,#6366f10a,#f973160a,#0ea5e90a);border:1px solid #ffffff0a;border-radius:10px;padding:8px">
+          <span class="pill-f-block" style="background:#6366f108;color:#6366f190;border-color:#6366f130">Puntual</span>
+          <span class="pill-f-block" style="background:#f9731608;color:#f9731690;border-color:#f9731630">Recurrente</span>
+          <span class="pill-f-block" style="background:#0ea5e908;color:#0ea5e990;border-color:#0ea5e930">Iniciativa</span>
+        </div>
+      </div>
+      <div class="campo">
+        <label><span class="lbl-dot" style="background:#ED002F"></span>Progreso *</label>
+        <div class="prog-segs">
+          <button class="prog-seg ps-0">0%</button><button class="prog-seg ps-25">25%</button><button class="prog-seg ps-50">50%</button><button class="prog-seg ps-75">75%</button><button class="prog-seg ps-100">100%</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPCIÓN G: Fondo gradiente en las pills (opacidad baja) -->
+  <div>
+    <h3>G — Pills rellenas con gradiente</h3>
+    <div class="card">
+      <div class="sep-label">Estado</div>
+      <div class="campo">
+        <div class="pills-row">
+          <span class="pill-g gg-violet">Por comenzar</span>
+          <span class="pill-g gg-blue">En gestión</span>
+          <span class="pill-g gg-amber">En revisión</span>
+          <span class="pill-g gg-orange">Pendiente</span>
+          <span class="pill-g gg-green">Completado</span>
+        </div>
+      </div>
+      <div class="sep-label">Prioridad</div>
+      <div class="campo">
+        <div class="pills-block">
+          <span class="pill-g-block gg-sky">Baja</span>
+          <span class="pill-g-block gg-yellow">Media</span>
+          <span class="pill-g-block gg-red">Alta</span>
+        </div>
+      </div>
+      <div class="sep-label">Detalles</div>
+      <div class="campo">
+        <label><span class="lbl-dot" style="background:#10b981"></span>Magnitud</label>
+        <div class="pills-block">
+          <span class="pill-g-block gg-green">Rápido</span>
+          <span class="pill-g-block gg-blue">Moderado</span>
+          <span class="pill-g-block gg-amber">Extenso</span>
+          <span class="pill-g-block gg-red">Complejo</span>
+        </div>
+      </div>
+      <div class="campo">
+        <label><span class="lbl-dot" style="background:#6366f1"></span>Tipo</label>
+        <div class="pills-block">
+          <span class="pill-g-block gg-ind">Puntual</span>
+          <span class="pill-g-block gg-orange2">Recurrente</span>
+          <span class="pill-g-block gg-sky2">Iniciativa</span>
+        </div>
+      </div>
+      <div class="campo">
+        <label><span class="lbl-dot" style="background:#ED002F"></span>Progreso *</label>
+        <div class="prog-segs">
+          <button class="prog-seg ps-0">0%</button><button class="prog-seg ps-25">25%</button><button class="prog-seg ps-50">50%</button><button class="prog-seg ps-75">75%</button><button class="prog-seg ps-100">100%</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

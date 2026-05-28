@@ -38,7 +38,7 @@ const props = defineProps({
 defineEmits(['editar'])
 
 const ESTADOS = {
-  por_comenzar: { label: 'Por comenzar', color: '#636466' },
+  por_comenzar: { label: 'Por comenzar', color: '#a78bfa' },
   en_gestion:   { label: 'En gestión',   color: '#3b82f6' },
   en_revision:  { label: 'En revisión',  color: '#f59e0b' },
   pendiente:    { label: 'Pendiente',    color: '#f97316' },

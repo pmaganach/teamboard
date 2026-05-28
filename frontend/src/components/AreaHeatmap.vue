@@ -43,7 +43,7 @@ const props = defineProps({
 })
 
 const estados = [
-  { id: 'por_comenzar', label: 'Por comenzar', color: '#636466' },
+  { id: 'por_comenzar', label: 'Por comenzar', color: '#a78bfa' },
   { id: 'en_gestion',   label: 'En gestión',   color: '#3b82f6' },
   { id: 'en_revision',  label: 'En revisión',  color: '#f59e0b' },
   { id: 'pendiente',    label: 'Pendiente',    color: '#f97316' },

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Mockup Pills — Opciones</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #1C1C1C; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; color: #e8e8e8; }
+:root { --surface: #252525; --surface2: #2e2e2e; --border: #333; --text: #e8e8e8; --text-sub: #636466; }
+
+h3 { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #636466; margin-bottom: 14px; text-align: center; }
+.grid { display: flex; gap: 20px; flex-wrap: wrap; align-items: flex-start; }
+
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; padding: 20px; width: 280px;
+}
+.card-title {
+  font-size: 11px; font-weight: 700; color: #636466;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 16px; text-align: center;
+}
+
+.sep-label {
+  display: flex; align-items: center; gap: 8px;
+  color: #636466; font-size: 9px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.6px;
+  margin-bottom: 8px;
+}
+.sep-label::before, .sep-label::after { content: ''; flex: 1; height: 1px; background: #333; }
+
+.lbl-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+.campo { margin-bottom: 14px; }
+.campo label { font-size: 10px; font-weight: 700; color: #636466; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; margin-bottom: 6px; }
+
+/* ── OPCIÓN A: Actual (todos con color 08) ── */
+.pill-a {
+  padding: 5px 11px; border-radius: 20px; font-size: 11px; font-weight: 600;
+  border: 1px solid; cursor: pointer; display: inline-block; margin: 2px;
+}
+.pill-a-block {
+  flex: 1; padding: 7px; border-radius: 8px; font-size: 11px; font-weight: 600;
+  text-align: center; border: 1px solid; cursor: pointer;
+}
+.pills-row { display: flex; gap: 5px; flex-wrap: wrap; }
+.pills-block { display: flex; gap: 5px; }
+
+/* ── OPCIÓN B: Solo estado con color, resto gris ── */
+.pill-b-gray {
+  flex: 1; padding: 7px; border-radius: 8px; font-size: 11px; font-weight: 600;
+  text-align: center; border: 1px solid #333; color: #636466;
+  background: transparent; cursor: pointer; display: inline-block;
+}
+.pill-b-gray-sm {
+  padding: 5px 11px; border-radius: 20px; font-size: 11px; font-weight: 600;
+  border: 1px solid #333; color: #636466; background: transparent; cursor: pointer; display: inline-block; margin: 2px;
+}
+
+/* ── OPCIÓN C: Solo dots, todo gris ── */
+/* igual que b-gray */
+
+/* ── OPCIÓN D: Sin dots, gris original ── */
+
+/* Progreso (igual en todos) */
+.prog-segs { display: flex; gap: 5px; }
+.prog-seg {
+  flex: 1; padding: 7px 4px; border-radius: 8px; font-size: 11px; font-weight: 700;
+  text-align: center; border: 1px solid #333; background: transparent; color: #636466;
+  cursor: pointer; position: relative; overflow: hidden;
+}
+.prog-seg::after { content: ''; position: absolute; bottom: 0; left: 0; height: 3px; border-radius: 0 0 8px 8px; }
+.ps-0::after   { width: 0%;   background: #636466; }
+.ps-25::after  { width: 25%;  background: #eab308; }
+.ps-50::after  { width: 50%;  background: #eab308; }
+.ps-75::after  { width: 75%;  background: #10b981; }
+.ps-100::after { width: 100%; background: #10b981; }
+</style>
+</head>
+<body>
+
+<div class="grid">
+
+  <!-- OPCIÓN A: Actual -->
+  <div>
+    <h3>A — Actual (todos con color)</h3>
+    <div class="card">
+
+      <div class="sep-label">Estado</div>
+      <div class="campo">
+        <div class="pills-row">
+          <span class="pill-a" style="background:#a78bfa08;color:#a78bfa99;border-color:#a78bfa40">Por comenzar</span>
+          <span class="pill-a" style="background:#3b82f608;color:#3b82f699;border-color:#3b82f640">En gestión</span>
+          <span class="pill-a" style="background:#f59e0b08;color:#f59e0b99;border-color:#f59e0b40">En revisión</span>
+          <span class="pill-a" style="background:#f9731608;color:#f9731699;border-color:#f9731640">Pendiente</span>
+          <span class="pill-a" style="background:#10b98108;color:#10b98199;border-color:#10b98140">Completado</span>
+        </div>
+      </div>
+
+      <div class="sep-label">Prioridad</div>
+      <div class="campo">
+        <div class="pills-block">
+          <span class="pill-a-block" style="background:#38bdf808;color:#38bdf899;border-color:#38bdf840">Baja</span>
+          <span class="pill-a-block" style="background:#eab30808;color:#eab30899;border-color:#eab30840">Media</span>
+          <span class="pill-a-block" style="background:#ED002F08;color:#ED002F99;border-color:#ED002F40">Alta</span>
+        </div>
+      </div>
+
+      <div class="sep-label">Detalles</div>
+      <div class="campo">
+        <label><span class="lbl-dot" style="background:#10b981"></span>Magnitud</label>
+        <div class="pills-block">
+          <span class="pill-a-block" style="background:#10b98108;color:#10b98199;border-color:#10b98140">Rápido</span>
+          <span class="pill-a-block" style="background:#3b82f608;color:#3b82f699;border-color:#3b82f640">Moderado</span>
+          <span class="pill-a-block" style="background:#eab30808;color:#eab30899;border-color:#eab30840">Extenso</span>
+          <span class="pill-a-block" style="background:#ED002F08;color:#ED002F99;border-color:#ED002F40">Complejo</span>
+        </div>
+      </div>
+      <div class="campo">
+        <label><span class="lbl-dot" style="background:#6366f1"></span>Tipo</label>
+        <div class="pills-block">
+          <span class="pill-a-block" style="background:#6366f108;color:#6366f199;border-color:#6366f140">Puntual</span>
+          <span class="pill-a-block" style="background:#f9731608;color:#f9731699;border-color:#f9731640">Recurrente</span>
+          <span class="pill-a-block" style="background:#0ea5e908;color:#0ea5e999;border-color:#0ea5e940">Iniciativa</span>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label><span class="lbl-dot" style="background:#ED002F"></span>Progreso *</label>
+        <div class="prog-segs">
+          <button class="prog-seg ps-0">0%</button>
+          <button class="prog-seg ps-25">25%</button>
+          <button class="prog-seg ps-50">50%</button>
+          <button class="prog-seg ps-75">75%</button>
+          <button class="prog-seg ps-100">100%</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPCIÓN B: Solo estado con color -->
+  <div>
+    <h3>B — Solo estado con color</h3>
+    <div class="card">
+
+      <div class="sep-label">Estado</div>
+      <div class="campo">
+        <div class="pills-row">
+          <span class="pill-a" style="background:#a78bfa08;color:#a78bfa99;border-color:#a78bfa40">Por comenzar</span>
+          <span class="pill-a" style="background:#3b82f608;color:#3b82f699;border-color:#3b82f640">En gestión</span>
+          <span class="pill-a" style="background:#f59e0b08;color:#f59e0b99;border-color:#f59e0b40">En revisión</span>
+          <span class="pill-a" style="background:#f9731608;color:#f9731699;border-color:#f9731640">Pendiente</span>
+          <span class="pill-a" style="background:#10b98108;color:#10b98199;border-color:#10b98140">Completado</span>
+        </div>
+      </div>
+
+      <div class="sep-label">Prioridad</div>
+      <div class="campo">
+        <div class="pills-block">
+          <span class="pill-b-gray">Baja</span>
+          <span class="pill-b-gray">Media</span>
+          <span class="pill-b-gray">Alta</span>
+        </div>
+      </div>
+
+      <div class="sep-label">Detalles</div>
+      <div class="campo">
+        <label><span class="lbl-dot" style="background:#10b981"></span>Magnitud</label>
+        <div class="pills-block">
+          <span class="pill-b-gray">Rápido</span>
+          <span class="pill-b-gray">Moderado</span>
+          <span class="pill-b-gray">Extenso</span>
+          <span class="pill-b-gray">Complejo</span>
+        </div>
+      </div>
+      <div class="campo">
+        <label><span class="lbl-dot" style="background:#6366f1"></span>Tipo</label>
+        <div class="pills-block">
+          <span class="pill-b-gray">Puntual</span>
+          <span class="pill-b-gray">Recurrente</span>
+          <span class="pill-b-gray">Iniciativa</span>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label><span class="lbl-dot" style="background:#ED002F"></span>Progreso *</label>
+        <div class="prog-segs">
+          <button class="prog-seg ps-0">0%</button>
+          <button class="prog-seg ps-25">25%</button>
+          <button class="prog-seg ps-50">50%</button>
+          <button class="prog-seg ps-75">75%</button>
+          <button class="prog-seg ps-100">100%</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPCIÓN C: Solo dots, pills todas grises -->
+  <div>
+    <h3>C — Dots en labels, pills grises</h3>
+    <div class="card">
+
+      <div class="sep-label">Estado</div>
+      <div class="campo">
+        <div class="pills-row">
+          <span class="pill-b-gray-sm">Por comenzar</span>
+          <span class="pill-b-gray-sm">En gestión</span>
+          <span class="pill-b-gray-sm">En revisión</span>
+          <span class="pill-b-gray-sm">Pendiente</span>
+          <span class="pill-b-gray-sm">Completado</span>
+        </div>
+      </div>
+
+      <div class="sep-label">Prioridad</div>
+      <div class="campo">
+        <div class="pills-block">
+          <span class="pill-b-gray">Baja</span>
+          <span class="pill-b-gray">Media</span>
+          <span class="pill-b-gray">Alta</span>
+        </div>
+      </div>
+
+      <div class="sep-label">Detalles</div>
+      <div class="campo">
+        <label><span class="lbl-dot" style="background:#10b981"></span>Magnitud</label>
+        <div class="pills-block">
+          <span class="pill-b-gray">Rápido</span>
+          <span class="pill-b-gray">Moderado</span>
+          <span class="pill-b-gray">Extenso</span>
+          <span class="pill-b-gray">Complejo</span>
+        </div>
+      </div>
+      <div class="campo">
+        <label><span class="lbl-dot" style="background:#6366f1"></span>Tipo</label>
+        <div class="pills-block">
+          <span class="pill-b-gray">Puntual</span>
+          <span class="pill-b-gray">Recurrente</span>
+          <span class="pill-b-gray">Iniciativa</span>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label><span class="lbl-dot" style="background:#ED002F"></span>Progreso *</label>
+        <div class="prog-segs">
+          <button class="prog-seg ps-0">0%</button>
+          <button class="prog-seg ps-25">25%</button>
+          <button class="prog-seg ps-50">50%</button>
+          <button class="prog-seg ps-75">75%</button>
+          <button class="prog-seg ps-100">100%</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPCIÓN D: Original puro, sin dots -->
+  <div>
+    <h3>D — Original (sin dots, sin color)</h3>
+    <div class="card">
+
+      <div class="campo">
+        <label>Estado *</label>
+        <div class="pills-row">
+          <span class="pill-b-gray-sm">Por comenzar</span>
+          <span class="pill-b-gray-sm">En gestión</span>
+          <span class="pill-b-gray-sm">En revisión</span>
+          <span class="pill-b-gray-sm">Pendiente</span>
+          <span class="pill-b-gray-sm">Completado</span>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label>Prioridad *</label>
+        <div class="pills-block">
+          <span class="pill-b-gray">Baja</span>
+          <span class="pill-b-gray">Media</span>
+          <span class="pill-b-gray">Alta</span>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label>Magnitud</label>
+        <div class="pills-block">
+          <span class="pill-b-gray">Rápido</span>
+          <span class="pill-b-gray">Moderado</span>
+          <span class="pill-b-gray">Extenso</span>
+          <span class="pill-b-gray">Complejo</span>
+        </div>
+      </div>
+      <div class="campo">
+        <label>Tipo</label>
+        <div class="pills-block">
+          <span class="pill-b-gray">Puntual</span>
+          <span class="pill-b-gray">Recurrente</span>
+          <span class="pill-b-gray">Iniciativa</span>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label>Progreso *</label>
+        <div class="prog-segs">
+          <button class="prog-seg ps-0">0%</button>
+          <button class="prog-seg ps-25">25%</button>
+          <button class="prog-seg ps-50">50%</button>
+          <button class="prog-seg ps-75">75%</button>
+          <button class="prog-seg ps-100">100%</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

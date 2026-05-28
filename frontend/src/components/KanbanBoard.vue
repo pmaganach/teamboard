@@ -70,7 +70,7 @@ const props = defineProps({
 const emit = defineEmits(['editar', 'actualizado'])
 
 const columnas = [
-  { id: 'por_comenzar', label: 'Por comenzar', color: '#636466' },
+  { id: 'por_comenzar', label: 'Por comenzar', color: '#a78bfa' },
   { id: 'en_gestion',   label: 'En gestión',   color: '#3b82f6' },
   { id: 'en_revision',  label: 'En revisión',  color: '#f59e0b' },
   { id: 'pendiente',    label: 'Pendiente',    color: '#f97316' },
@@ -159,8 +159,8 @@ async function soltar(nuevoEstado) {
   text-transform: uppercase; flex-shrink: 0;
 }
 .prio.alta  { background: #ED002F18; color: #ED002F; }
-.prio.media { background: #f59e0b18; color: #f59e0b; }
-.prio.baja  { background: #63646618; color: #636466; }
+.prio.media { background: #eab30818; color: #eab308; }
+.prio.baja  { background: #38bdf818; color: #38bdf8; }
 
 .tarjeta-footer { display: flex; align-items: center; gap: 8px; }
 .resp {

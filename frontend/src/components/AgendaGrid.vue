@@ -56,9 +56,17 @@ const ESTADOS = {
 }
 const estadoLabel = (e) => ESTADOS[e] || e
 
+function esResponsable(t, uid) {
+  if (t.responsable_id === uid) return true
+  if (t.responsables_ids) {
+    try { return JSON.parse(t.responsables_ids).includes(uid) } catch { /* ignore */ }
+  }
+  return false
+}
+
 function trabajosEnDia(uid, isoDay) {
   return props.trabajos.filter(t => {
-    if (t.responsable_id !== uid) return false
+    if (!esResponsable(t, uid)) return false
     if (!t.fecha_inicio) return false
     const inicio = t.fecha_inicio
     const fin    = t.fecha_sla || t.fecha_inicio

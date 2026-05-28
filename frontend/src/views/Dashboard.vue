@@ -134,8 +134,16 @@ async function recargar() {
 onMounted(recargar)
 watch(filtros, recargar)
 
+function esResponsable(t, uid) {
+  if (t.responsable_id === uid) return true
+  if (t.responsables_ids) {
+    try { return JSON.parse(t.responsables_ids).includes(uid) } catch { /* ignore */ }
+  }
+  return false
+}
+
 const trabajosPorUsuario = (uid) =>
-  trabajos.value.filter(t => t.responsable_id === uid)
+  trabajos.value.filter(t => esResponsable(t, uid))
 
 const trabajosPorArea = (nombre) =>
   trabajos.value.filter(t => t.area_cliente === nombre)

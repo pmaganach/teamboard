@@ -23,6 +23,7 @@ AREAS = [
     {"nombre": "Monitoring",                  "icono": "📡", "color": "#06b6d4", "encargado": "Raul Spano"},
     {"nombre": "Customer Care",               "icono": "📞", "color": "#ec4899", "encargado": "Marion Zembo"},
     {"nombre": "Field Service",               "icono": "🔧", "color": "#f97316", "encargado": "Felipe Vega"},
+    {"nombre": "Otras Áreas",                 "icono": "🎯", "color": "#8A8C8E", "encargado": None},
 ]
 
 
@@ -36,6 +37,7 @@ USER_EMAILS = [
     {"nombre": "Pablo Magaña",        "email": "pablo.magana@verisure.cl",      "rol": Rol.analista },
     {"nombre": "Víctor Benítez",      "email": "victor.benitez@verisure.cl",    "rol": Rol.analista },
     {"nombre": "Wilmari Ruiz",        "email": "wilmari.ruiz@verisure.cl",      "rol": Rol.analista },
+    {"nombre": "Ignacio Algarra",     "email": "ignacio.algarra@verisure.cl",   "rol": Rol.gerente  },
 ]
 
 

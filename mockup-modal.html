@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Mockup Modal — Nuevo Trabajo</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #1C1C1C; font-family: 'Segoe UI', system-ui, sans-serif;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 100vh; padding: 32px; color: #e8e8e8;
+}
+
+/* ── Variables tema oscuro ── */
+:root {
+  --bg: #1C1C1C; --surface: #252525; --surface2: #2e2e2e;
+  --border: #333; --text: #e8e8e8; --text-sub: #636466;
+  --accent: #ED002F; --accent-dim: #ED002F18;
+}
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  width: 100%; max-width: 520px;
+  box-shadow: 0 20px 60px #0008;
+}
+
+/* ── Header ── */
+.modal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.modal-header::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 7px;
+  border-radius: 16px 16px 0 0;
+  background: #a78bfa;
+}
+.modal-title { font-size: 14px; font-weight: 700; color: var(--text); }
+.btn-cerrar {
+  color: var(--text-sub); font-size: 16px;
+  width: 28px; height: 28px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+}
+
+/* ── Body ── */
+.modal-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+
+.campo { display: flex; flex-direction: column; gap: 6px; }
+.campo label { font-size: 10px; font-weight: 700; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.5px; }
+.campo input, .campo select, .campo textarea {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 9px 12px;
+  color: var(--text); font-size: 13px; width: 100%;
+}
+.campo select option { background: var(--surface2); }
+.campo-fila { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.sep { border: none; border-top: 1px solid var(--border); }
+
+/* ── Avatares ── */
+.avatares { display: flex; gap: 7px; flex-wrap: wrap; padding-top: 2px; }
+.av {
+  width: 34px; height: 34px; border-radius: 50%;
+  font-size: 10px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; border: 2px solid transparent; opacity: 0.4;
+}
+.av.selected { opacity: 1; border-color: var(--border); box-shadow: 0 0 0 3px var(--surface2); }
+.av-none { background: var(--surface2); color: var(--text-sub); font-size: 15px; font-weight: 400; }
+.av-todos { background: #ED002F18; color: #ED002F; font-size: 9px; font-weight: 800; letter-spacing: 0.5px; }
+
+/* ── Pills estado ── */
+.pills-estado { display: flex; gap: 5px; flex-wrap: wrap; }
+.pill-estado {
+  padding: 5px 11px; border-radius: 20px; font-size: 11px; font-weight: 600;
+  border: 1px solid var(--border); background: transparent; color: var(--text-sub); cursor: pointer;
+}
+.pill-estado.active-violet  { background: #a78bfa18; color: #a78bfa; border-color: #a78bfa60; }
+.pill-estado.active-blue    { background: #3b82f618; color: #3b82f6; border-color: #3b82f660; }
+.pill-estado.active-amber   { background: #f59e0b18; color: #f59e0b; border-color: #f59e0b60; }
+.pill-estado.active-orange  { background: #f9731618; color: #f97316; border-color: #f9731660; }
+.pill-estado.active-green   { background: #10b98118; color: #10b981; border-color: #10b98160; }
+
+/* ── Pills prioridad ── */
+.pills-prio { display: flex; gap: 6px; }
+.pill-prio {
+  flex: 1; padding: 7px; border-radius: 8px; font-size: 11px; font-weight: 700; text-align: center;
+  border: 1px solid var(--border); background: transparent; color: var(--text-sub); cursor: pointer;
+}
+.pill-prio.active-gray   { background: #63646618; color: #636466; border-color: #63646660; }
+.pill-prio.active-amber  { background: #f59e0b18; color: #f59e0b; border-color: #f59e0b60; }
+.pill-prio.active-red    { background: #ED002F18; color: #ED002F; border-color: #ED002F60; }
+
+/* ── Pills genéricas ── */
+.pills-generic { display: flex; gap: 6px; flex-wrap: wrap; }
+.pill-generic {
+  flex: 1; padding: 7px; border-radius: 8px; font-size: 11px; font-weight: 700; text-align: center;
+  border: 1px solid var(--border); background: transparent; color: var(--text-sub); cursor: pointer; white-space: nowrap;
+}
+.pill-generic.active-green  { background: #10b98118; color: #10b981; border-color: #10b98160; }
+.pill-generic.active-blue   { background: #3b82f618; color: #3b82f6; border-color: #3b82f660; }
+.pill-generic.active-amber  { background: #f59e0b18; color: #f59e0b; border-color: #f59e0b60; }
+.pill-generic.active-red    { background: #ED002F18; color: #ED002F; border-color: #ED002F60; }
+.pill-generic.active-ind    { background: #6366f118; color: #6366f1; border-color: #6366f160; }
+.pill-generic.active-orange { background: #f9731618; color: #f97316; border-color: #f9731660; }
+.pill-generic.active-sky    { background: #0ea5e918; color: #0ea5e9; border-color: #0ea5e960; }
+
+/* ── Progreso ── */
+.prog-segs { display: flex; gap: 5px; }
+.prog-seg {
+  flex: 1; padding: 7px 4px; border-radius: 8px; font-size: 11px; font-weight: 700; text-align: center;
+  border: 1px solid var(--border); background: transparent; color: var(--text-sub); cursor: pointer;
+}
+.prog-seg.active { background: #ED002F; color: #fff; border-color: #ED002F; }
+
+/* ── Footer ── */
+.modal-footer {
+  display: flex; align-items: center; justify-content: flex-end; gap: 8px;
+  padding: 14px 20px; border-top: 1px solid var(--border);
+}
+.btn-primario {
+  background: #ED002F; color: #fff; padding: 8px 18px; border-radius: 8px;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+}
+.btn-secundario {
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text-sub); padding: 8px 14px; border-radius: 8px;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="modal">
+
+  <!-- Header -->
+  <div class="modal-header">
+    <h2 class="modal-title">Nuevo trabajo</h2>
+    <div class="btn-cerrar">✕</div>
+  </div>
+
+  <div class="modal-body">
+
+    <!-- Nombre -->
+    <div class="campo">
+      <label>Nombre del trabajo *</label>
+      <input type="text" placeholder="Ej: Dashboard Comercial" />
+    </div>
+
+    <!-- Área + Responsable -->
+    <div class="campo-fila">
+      <div class="campo">
+        <label>Área *</label>
+        <select>
+          <option>📈 Customer Intelligence</option>
+          <option>🔍 Estrategia Comercial</option>
+          <option>🏪 Operaciones Comerciales</option>
+          <option>📋 Performance & Reporting</option>
+          <option>🎯 Otras Áreas</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label>Responsable *</label>
+        <div class="avatares">
+          <div class="av av-none">—</div>
+          <div class="av av-todos">All</div>
+          <div class="av selected" style="background:#3b82f622;color:#3b82f6">AR</div>
+          <div class="av" style="background:#ec489922;color:#ec4899">DN</div>
+          <div class="av" style="background:#a78bfa22;color:#a78bfa">KH</div>
+          <div class="av" style="background:#f9731622;color:#f97316">MM</div>
+          <div class="av" style="background:#f59e0b22;color:#f59e0b">MB</div>
+          <div class="av" style="background:#84cc1622;color:#84cc16">PM</div>
+          <div class="av" style="background:#06b6d422;color:#06b6d4">VB</div>
+          <div class="av" style="background:#10b98122;color:#10b981">WR</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="sep" />
+
+    <!-- Estado -->
+    <div class="campo">
+      <label>Estado *</label>
+      <div class="pills-estado">
+        <button class="pill-estado active-violet">Por comenzar</button>
+        <button class="pill-estado">En gestión</button>
+        <button class="pill-estado">En revisión</button>
+        <button class="pill-estado">Pendiente</button>
+        <button class="pill-estado">Completado</button>
+      </div>
+    </div>
+
+    <!-- Prioridad -->
+    <div class="campo">
+      <label>Prioridad *</label>
+      <div class="pills-prio">
+        <button class="pill-prio">Baja</button>
+        <button class="pill-prio active-amber">Media</button>
+        <button class="pill-prio">Alta</button>
+      </div>
+    </div>
+
+    <!-- Magnitud -->
+    <div class="campo">
+      <label>Magnitud</label>
+      <div class="pills-generic">
+        <button class="pill-generic">Rápido</button>
+        <button class="pill-generic active-blue">Moderado</button>
+        <button class="pill-generic">Extenso</button>
+        <button class="pill-generic">Complejo</button>
+      </div>
+    </div>
+
+    <!-- Tipo -->
+    <div class="campo">
+      <label>Tipo</label>
+      <div class="pills-generic">
+        <button class="pill-generic active-ind">Puntual</button>
+        <button class="pill-generic">Recurrente</button>
+        <button class="pill-generic">Iniciativa</button>
+      </div>
+    </div>
+
+    <!-- Progreso -->
+    <div class="campo">
+      <label>Progreso *</label>
+      <div class="prog-segs">
+        <button class="prog-seg active">0%</button>
+        <button class="prog-seg">25%</button>
+        <button class="prog-seg">50%</button>
+        <button class="prog-seg">75%</button>
+        <button class="prog-seg">100%</button>
+      </div>
+    </div>
+
+    <!-- Fechas -->
+    <div class="campo-fila">
+      <div class="campo">
+        <label>Fecha inicio *</label>
+        <input type="date" value="2026-05-28" />
+      </div>
+      <div class="campo">
+        <label>Fecha SLA estimada *</label>
+        <input type="date" />
+      </div>
+    </div>
+
+    <!-- Comentarios -->
+    <div class="campo">
+      <label>Comentarios</label>
+      <textarea placeholder="Notas adicionales, contexto, links..." rows="2"></textarea>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="modal-footer">
+    <button class="btn-secundario">Cancelar</button>
+    <button class="btn-primario">Crear trabajo</button>
+  </div>
+
+</div>
+
+</body>
+</html>

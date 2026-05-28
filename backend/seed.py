@@ -23,7 +23,7 @@ AREAS = [
     {"nombre": "Monitoring",                  "icono": "📡", "color": "#06b6d4", "encargado": "Raul Spano"},
     {"nombre": "Customer Care",               "icono": "📞", "color": "#ec4899", "encargado": "Marion Zembo"},
     {"nombre": "Field Service",               "icono": "🔧", "color": "#f97316", "encargado": "Felipe Vega"},
-    {"nombre": "Otras Áreas",                 "icono": "🎯", "color": "#8A8C8E", "encargado": None},
+    {"nombre": "Otras Áreas",                 "icono": "🧩", "color": "#8A8C8E", "encargado": None},
 ]
 
 

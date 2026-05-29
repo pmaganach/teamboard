@@ -1,9 +1,13 @@
+# pyrefly: ignore [missing-import]
+from fastapi import FastAPI
+# pyrefly: ignore [missing-import]
+from fastapi.middleware.cors import CORSMiddleware
+# pyrefly: ignore [missing-import]
+from apscheduler.schedulers.background import BackgroundScheduler
+# pyrefly: ignore [missing-import]
+from apscheduler.triggers.cron import CronTrigger
 import os
 from dotenv import load_dotenv
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from apscheduler.schedulers.background import BackgroundScheduler
-from apscheduler.triggers.cron import CronTrigger
 from database import create_db
 from seed import seed
 from routes import trabajos, usuarios, areas, auth
@@ -20,7 +24,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-scheduler = BackgroundScheduler()
+scheduler = BackgroundScheduler(timezone=os.getenv("TZ", "America/Santiago"))
 
 
 @app.on_event("startup")

@@ -16,12 +16,12 @@ from models import Trabajo, UserAuth, Usuario, Estado, Rol
 load_dotenv()
 
 MANDRILL_API_KEY = os.getenv("MANDRILL_API_KEY")
-FROM_EMAIL       = "noreply@verisure.cl"
-FROM_NAME        = "Bitácora · Customer Intelligence"
-APP_URL          = "http://localhost:5173"
+FROM_EMAIL       = os.getenv("FROM_EMAIL", "noreply@verisure.cl")
+FROM_NAME        = os.getenv("FROM_NAME", "Bitácora · Customer Intelligence")
+APP_URL          = os.getenv("APP_URL", "https://verisure.vicbc.cl/bitacora-equipo-ci/")
 
-TEST_MODE  = True
-TEST_EMAIL = "pablo.magana@verisure.cl"
+TEST_MODE  = os.getenv("TEST_MODE", "True").lower() == "true"
+TEST_EMAIL = os.getenv("TEST_EMAIL", "pablo.magana@verisure.cl")
 
 ESTADOS_ACTIVOS = [Estado.por_comenzar, Estado.en_gestion, Estado.en_revision, Estado.pendiente]
 

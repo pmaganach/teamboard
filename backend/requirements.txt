@@ -3,3 +3,4 @@ sqlmodel==0.0.19
 uvicorn==0.30.0
 python-multipart==0.0.9
 requests==2.32.3
+apscheduler==3.10.4

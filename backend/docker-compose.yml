@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  teamboard-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: teamboard-backend
+    restart: always
+    ports:
+      # Map host port 8001 to container port 8000.
+      # You can change 8001 to any other free port on your VPS.
+      - "8001:8000"
+    env_file:
+      - .env
+    environment:
+      # We override the database location so it writes to our persistent volume directory
+      - DATABASE_URL=sqlite:////app/data/teamboard.db
+      - TZ=America/Santiago
+    volumes:
+      # Mount a local directory "data" inside the backend folder to persist the SQLite database
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s

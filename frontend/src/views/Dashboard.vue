@@ -27,6 +27,7 @@
             :key="u.id"
             :usuario="u"
             :trabajos="trabajosPorUsuario(u.id)"
+            :usuarios="usuarios"
             @editar="abrirModal"
           />
         </div>

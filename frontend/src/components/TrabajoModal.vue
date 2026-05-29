@@ -372,7 +372,7 @@ function cerrar() {
   border: 1px solid var(--border);
   border-radius: 16px;
   width: 100%; max-width: 520px;
-  max-height: 90vh; overflow-y: auto;
+  max-height: 98vh; overflow-y: auto;
   box-shadow: 0 20px 60px #0006;
 }
 

@@ -11,25 +11,69 @@
           <span class="count">{{ trabajos.length }} trabajo{{ trabajos.length !== 1 ? 's' : '' }}</span>
         </div>
       </div>
+      <!-- Nube de pensamientos -->
+      <button class="btn-nube" @click.stop="abrirNotas" title="Notas">
+        💭
+        <span v-if="tieneNoNLeidas" class="badge-nuevo"></span>
+      </button>
     </div>
 
     <div v-if="trabajos.length" class="trabajos-list">
-      <div v-for="t in trabajos" :key="t.id" class="trabajo-chip" :style="{ '--ec': estadoColor(t.estado) }" @click="$emit('editar', t)">
+      <div v-for="t in trabajos" :key="t.id" class="trabajo-chip" :style="{ '--ec': estadoColor(t.estado) }" @click.stop="$emit('editar', t)">
         <span class="chip-dot"></span>
         <span class="chip-nombre">{{ t.nombre }}</span>
         <span class="chip-estado">{{ estadoLabel(t.estado) }}</span>
       </div>
     </div>
     <div v-else class="empty">Sin trabajos activos</div>
+
+    <NotaPostit
+      v-if="postitAbierto"
+      :usuario="usuario"
+      :usuarios="usuarios"
+      @cerrar="postitAbierto = false"
+      @actualizado="cargarConteo"
+    />
+
   </div>
 </template>
 
 <script setup>
-defineProps({
+import { ref, computed, onMounted } from 'vue'
+import NotaPostit from './NotaPostit.vue'
+import { getNotas } from '../api/usuarios'
+import { useAuth } from '../composables/useAuth'
+
+const props = defineProps({
   usuario:  { type: Object, required: true },
   trabajos: { type: Array,  default: () => [] },
+  usuarios: { type: Array,  default: () => [] },
 })
 defineEmits(['editar'])
+
+const { user } = useAuth()
+
+const postitAbierto    = ref(false)
+const hayNoLeidas      = ref(false)
+
+// Gerentes ven notif en todas las cards; analistas solo en la suya
+const tieneNoNLeidas = computed(() => {
+  if (!hayNoLeidas.value) return false
+  if (user.value?.rol === 'gerente') return true
+  return props.usuario.id === user.value?.usuario_id ||
+         props.usuario.nombre === user.value?.nombre
+})
+
+async function cargarConteo() {
+  const r = await getNotas(props.usuario.id)
+  hayNoLeidas.value = r.data.some(n => !n.leida)
+}
+
+function abrirNotas() {
+  postitAbierto.value = true
+}
+
+onMounted(cargarConteo)
 
 const ESTADOS = {
   por_comenzar: { label: 'Por comenzar', color: '#a78bfa' },
@@ -52,9 +96,33 @@ const estadoColor = (e) => ESTADOS[e]?.color || '#636466'
   display: flex; flex-direction: column; gap: 12px;
   transition: border-color 0.2s;
 }
-.member-card:hover { border-color: var(--accent); }
 
-.card-header { display: flex; align-items: center; gap: 10px; }
+.card-header { display: flex; align-items: center; gap: 10px; position: relative; }
+
+.btn-nube {
+  margin-left: auto; border: none;
+  font-size: 18px; cursor: pointer; position: relative;
+  padding: 5px 7px; line-height: 1;
+  background: var(--accent-dim);
+  border-radius: 10px;
+  box-shadow: 0 1px 3px #0001, inset 0 1px 0 #ffffff18;
+  transition: background 0.18s, transform 0.18s, box-shadow 0.18s;
+}
+.btn-nube:hover {
+  background: var(--accent);
+  transform: scale(1.13);
+  box-shadow: 0 2px 8px #0002;
+}
+.badge-nuevo {
+  position: absolute; top: 0; right: 0;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #ef4444;
+  animation: pulso 1.5s ease-in-out infinite;
+}
+@keyframes pulso {
+  0%, 100% { transform: scale(1);   opacity: 1; }
+  50%       { transform: scale(1.4); opacity: 0.6; }
+}
 .avatar {
   width: 40px; height: 40px; border-radius: 50%;
   font-size: 13px; font-weight: 800;

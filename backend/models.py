@@ -123,3 +123,13 @@ class OTP(SQLModel, table=True):
     email      : str
     code       : str
     expires_at : datetime
+
+
+# ─── NOTA ───────────────────────────────────────────────
+class Nota(SQLModel, table=True):
+    id                 : Optional[int] = Field(default=None, primary_key=True)
+    usuario_destino_id : int           = Field(foreign_key="usuario.id")
+    usuario_origen_id  : int           = Field(foreign_key="usuario.id")
+    texto              : str
+    leida              : bool          = False
+    creado_en          : datetime      = Field(default_factory=datetime.now)

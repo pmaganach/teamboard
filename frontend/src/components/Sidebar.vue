@@ -32,7 +32,7 @@
     <!-- Equipo -->
     <div class="section-label">Equipo</div>
     <div class="team-list">
-      <div v-for="u in usuarios" :key="u.id" class="member-row">
+      <div v-for="u in usuarios" :key="u.id" class="member-row" @click="abrirPerfil(u)">
         <div class="avatar" :style="{ background: u.color + '22', color: u.color, borderColor: u.color }">
           {{ u.iniciales }}
         </div>
@@ -42,6 +42,12 @@
         </div>
       </div>
     </div>
+
+    <PerfilUsuario
+      v-if="usuarioSeleccionado"
+      :usuario="usuarioSeleccionado"
+      @cerrar="usuarioSeleccionado = null"
+    />
 
     <div class="divider"></div>
 
@@ -67,12 +73,18 @@ import { useRoute, useRouter } from 'vue-router'
 import { getUsuarios } from '../api/usuarios'
 import { useAuth } from '../composables/useAuth'
 import ThemePicker from './ThemePicker.vue'
+import PerfilUsuario from './PerfilUsuario.vue'
 
 const route    = useRoute()
 const router   = useRouter()
 const ruta     = ref(route.path)
-const usuarios = ref([])
-const { user, logout } = useAuth()
+const usuarios           = ref([])
+const usuarioSeleccionado = ref(null)
+const { user, logout }   = useAuth()
+
+function abrirPerfil(u) {
+  usuarioSeleccionado.value = u
+}
 
 route && (ruta.value = route.path)
 
@@ -139,7 +151,7 @@ function cerrarSesion() {
   display: flex; align-items: center; gap: 8px;
   padding: 5px 8px; border-radius: 6px;
   transition: background 0.15s;
-  cursor: default;
+  cursor: pointer;
 }
 .member-row:hover { background: var(--surface2); }
 .avatar {

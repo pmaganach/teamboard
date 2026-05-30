@@ -1,7 +1,9 @@
 import axios from 'axios'
 
 const client = axios.create({
-  baseURL: 'https://cloudapp.vicbc.cl/teamboard-api',
+  baseURL: import.meta.env.DEV
+    ? 'http://127.0.0.1:8000'
+    : 'https://cloudapp.vicbc.cl/teamboard-api',
   headers: { 'Content-Type': 'application/json' }
 })
 

@@ -8,12 +8,13 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
 import os
 from dotenv import load_dotenv
+
+load_dotenv()
+
 from database import create_db
 from seed import seed
 from routes import trabajos, usuarios, areas, auth
 from reminders import job_lunes, job_miercoles, job_viernes
-
-load_dotenv()
 
 app = FastAPI(title="TeamBoard API", version="1.0.0")
 

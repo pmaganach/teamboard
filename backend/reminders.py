@@ -493,7 +493,7 @@ def job_viernes():
             if not trabajos:
                 continue
             sin_act = [t for t in trabajos if t.progreso == 0 or t.estado == Estado.por_comenzar]
-            def hl(t, sa=sin_act):
+            def hl(t, hoy, sa=sin_act):
                 return _trabajo_card(t, warn=(t in sa))
             analistas_data.append({
                 'total': len(trabajos), 'riesgo': len(sin_act),

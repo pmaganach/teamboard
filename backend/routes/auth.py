@@ -13,7 +13,7 @@ load_dotenv()
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
-MANDRILL_API_KEY = os.getenv("MANDRILL_API_KEY", "md-OKWBQMFPVI2onwYq77lqag")
+MANDRILL_API_KEY = os.getenv("MANDRILL_API_KEY")
 OTP_EXPIRY_MIN   = 10
 
 
